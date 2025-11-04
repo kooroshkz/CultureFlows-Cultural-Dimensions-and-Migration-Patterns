@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureFlows Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>CultureFlows Debug Page</h1>
+    
+    <div id="status"></div>
+    
+    <h2>Test Results:</h2>
+    <div id="results"></div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+        
+        function addStatus(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            statusDiv.appendChild(div);
+        }
+        
+        function addResult(test, result) {
+            const div = document.createElement('div');
+            div.className = `status ${result ? 'success' : 'error'}`;
+            div.textContent = `${test}: ${result ? 'PASS' : 'FAIL'}`;
+            resultsDiv.appendChild(div);
+        }
+        
+        async function runTests() {
+            addStatus('Starting debug tests...');
+            
+            // Test 1: Check if CSV data loads
+            try {
+                addStatus('Testing CSV data loading...');
+                const response = await fetch('./data/masterdata.csv');
+                addResult('CSV Response', response.ok);
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    addResult('CSV Content Length > 0', text.length > 0);
+                    addResult('CSV Has Headers', text.includes('country,continent'));
+                    
+                    // Quick parse test
+                    const lines = text.trim().split('\n');
+                    addResult('CSV Has Data Rows', lines.length > 1);
+                    addStatus(`Found ${lines.length - 1} data rows`);
+                }
+            } catch (error) {
+                addResult('CSV Loading', false);
+                addStatus('CSV Error: ' + error.message, 'error');
+            }
+            
+            // Test 2: Check if D3 loads
+            addResult('D3.js Available', typeof d3 !== 'undefined');
+            
+            // Test 3: Check if topojson loads
+            addResult('TopoJSON Available', typeof topojson !== 'undefined');
+            
+            // Test 4: Test external world data
+            try {
+                addStatus('Testing world map data...');
+                const worldResponse = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+                addResult('World Data Response', worldResponse.ok);
+            } catch (error) {
+                addResult('World Data Loading', false);
+                addStatus('World Data Error: ' + error.message, 'error');
+            }
+            
+            addStatus('Debug tests completed!', 'success');
+        }
+        
+        // Run tests when page loads
+        runTests();
+    </script>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+</body>
+</html>

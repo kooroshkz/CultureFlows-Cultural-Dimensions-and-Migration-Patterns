@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureFlows - Simple Version</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="title-icon">🌍</span>
+                    CultureFlows
+                </h1>
+                <p class="app-subtitle">Explore Cultural Dimensions & Migration Patterns</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel: Map -->
+            <section class="map-panel">
+                <div class="controls-bar">
+                    <!-- Filter Selector -->
+                    <div class="control-group">
+                        <label for="migration-filter">Migration Type:</label>
+                        <select id="migration-filter" class="filter-select">
+                            <option value="all">All Immigrants</option>
+                            <option value="male">Male Immigrants</option>
+                            <option value="female">Female Immigrants</option>
+                        </select>
+                    </div>
+
+                    <!-- Year Slider -->
+                    <div class="control-group year-control">
+                        <label for="year-slider">Year: <span id="year-display">2024</span></label>
+                        <input type="range" id="year-slider" min="1990" max="2024" step="5" value="2024" class="year-slider">
+                        <div class="year-marks">
+                            <span>1990</span>
+                            <span>2000</span>
+                            <span>2010</span>
+                            <span>2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Map -->
+                <div class="map-container">
+                    <div id="map-status" style="padding: 20px; text-align: center; color: #64748b;">
+                        Loading map...
+                    </div>
+                    <svg id="world-map" class="world-map"></svg>
+                </div>
+            </section>
+
+            <!-- Right Panel: Data & Comparison -->
+            <section class="data-panel">
+                <div class="panel-header">
+                    <h2>Country Analysis</h2>
+                    <button id="clear-selection" class="clear-btn">Clear Selection</button>
+                </div>
+
+                <!-- Country Selection Area -->
+                <div class="country-selection">
+                    <div class="selected-country" id="country-1">
+                        <div class="country-placeholder">
+                            <span class="placeholder-icon">🌐</span>
+                            <p>Click on a country to view data</p>
+                        </div>
+                    </div>
+
+                    <div class="vs-divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="selected-country" id="country-2">
+                        <div class="country-placeholder">
+                            <span class="placeholder-icon">🌐</span>
+                            <p>Click another country to compare</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Display -->
+                <div style="padding: 20px;">
+                    <h3>App Status</h3>
+                    <div id="app-status">Initializing...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simple app for debugging
+        class SimpleApp {
+            constructor() {
+                this.data = null;
+                this.init();
+            }
+
+            async init() {
+                this.updateStatus('Loading data...');
+                try {
+                    await this.loadData();
+                    this.updateStatus(`Loaded ${this.data.length} countries successfully!`);
+                    this.createSimpleMap();
+                } catch (error) {
+                    this.updateStatus('Error: ' + error.message);
+                    console.error('App error:', error);
+                }
+            }
+
+            updateStatus(message) {
+                document.getElementById('app-status').innerHTML = message;
+                document.getElementById('map-status').innerHTML = message;
+                console.log('Status:', message);
+            }
+
+            async loadData() {
+                const response = await fetch('./data/masterdata.csv');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const csvText = await response.text();
+                this.data = this.parseCSV(csvText);
+            }
+
+            parseCSV(csvText) {
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(',').map(h => h.trim());
+                const data = [];
+
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    const values = lines[i].split(',').map(v => v.trim());
+                    const row = {};
+                    
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] || '';
+                    });
+                    
+                    if (row.country && row.country.trim()) {
+                        data.push(row);
+                    }
+                }
+
+                return data;
+            }
+
+            createSimpleMap() {
+                this.updateStatus('Creating interactive map...');
+                
+                const svg = d3.select('#world-map');
+                const width = 800;
+                const height = 500;
+                
+                svg.attr('viewBox', `0 0 ${width} ${height}`)
+                   .style('width', '100%')
+                   .style('height', '100%');
+
+                // Create simple clickable regions for our available countries
+                const regions = [
+                    { name: 'Ethiopia', x: 450, y: 250, color: '#2563eb' },
+                    { name: 'Kenya', x: 470, y: 270, color: '#dc2626' },
+                    { name: 'Tanzania', x: 460, y: 290, color: '#16a34a' },
+                    { name: 'Egypt', x: 440, y: 200, color: '#ca8a04' },
+                    { name: 'Nigeria', x: 400, y: 240, color: '#9333ea' }
+                ];
+
+                const g = svg.append('g');
+                
+                // Draw background
+                g.append('rect')
+                 .attr('width', width)
+                 .attr('height', height)
+                 .attr('fill', '#f1f5f9');
+
+                // Draw regions
+                regions.forEach(region => {
+                    const countryData = this.data.find(d => d.country === region.name);
+                    if (countryData) {
+                        g.append('circle')
+                         .attr('cx', region.x)
+                         .attr('cy', region.y)
+                         .attr('r', 20)
+                         .attr('fill', region.color)
+                         .attr('opacity', 0.7)
+                         .attr('stroke', '#ffffff')
+                         .attr('stroke-width', 2)
+                         .style('cursor', 'pointer')
+                         .on('click', () => this.selectCountry(countryData))
+                         .on('mouseover', function() {
+                             d3.select(this).attr('opacity', 1).attr('r', 25);
+                         })
+                         .on('mouseout', function() {
+                             d3.select(this).attr('opacity', 0.7).attr('r', 20);
+                         });
+
+                        g.append('text')
+                         .attr('x', region.x)
+                         .attr('y', region.y + 35)
+                         .attr('text-anchor', 'middle')
+                         .attr('font-size', '12px')
+                         .attr('font-weight', 'bold')
+                         .attr('fill', '#374151')
+                         .text(region.name);
+                    }
+                });
+
+                this.updateStatus('Map ready! Click on countries to select them.');
+                document.getElementById('map-status').style.display = 'none';
+            }
+
+            selectCountry(countryData) {
+                this.updateStatus(`Selected: ${countryData.country} (${countryData.continent})`);
+                
+                // Simple display in the first country slot
+                const country1 = document.getElementById('country-1');
+                country1.innerHTML = `
+                    <div class="country-info">
+                        <div class="country-flag">🌍</div>
+                        <div class="country-name">${countryData.country}</div>
+                        <div class="country-region">${countryData.region}</div>
+                    </div>
+                `;
+                country1.classList.add('active');
+            }
+        }
+
+        // Initialize the simple app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.simpleApp = new SimpleApp();
+        });
+    </script>
+</body>
+</html>

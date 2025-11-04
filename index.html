@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureFlows - Cultural Dimensions & Migration Patterns</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="title-icon">🌍</span>
+                    CultureFlows
+                </h1>
+                <p class="app-subtitle">Explore Cultural Dimensions & Migration Patterns</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel: Map -->
+            <section class="map-panel">
+                <div class="controls-bar">
+                    <!-- Filter Selector -->
+                    <div class="control-group">
+                        <label for="migration-filter">Migration Type:</label>
+                        <select id="migration-filter" class="filter-select">
+                            <option value="all">All Immigrants</option>
+                            <option value="male">Male Immigrants</option>
+                            <option value="female">Female Immigrants</option>
+                        </select>
+                    </div>
+
+                    <!-- Year Slider -->
+                    <div class="control-group year-control">
+                        <label for="year-slider">Year: <span id="year-display">2024</span></label>
+                        <input type="range" id="year-slider" min="1990" max="2024" step="5" value="2024" class="year-slider">
+                        <div class="year-marks">
+                            <span>1990</span>
+                            <span>2000</span>
+                            <span>2010</span>
+                            <span>2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Map -->
+                <div class="map-container">
+                    <svg id="world-map" class="world-map"></svg>
+                    <div class="map-legend">
+                        <h4>Migration Rate</h4>
+                        <div class="legend-gradient">
+                            <div class="gradient-bar"></div>
+                            <div class="legend-labels">
+                                <span>Low</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Data & Comparison -->
+            <section class="data-panel">
+                <div class="panel-header">
+                    <h2>Country Analysis</h2>
+                    <button id="clear-selection" class="clear-btn">Clear Selection</button>
+                </div>
+
+                <!-- Country Selection Area -->
+                <div class="country-selection">
+                    <div class="selected-country" id="country-1">
+                        <div class="country-placeholder">
+                            <span class="placeholder-icon">🌐</span>
+                            <p>Click on a country to view data</p>
+                        </div>
+                    </div>
+
+                    <div class="vs-divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="selected-country" id="country-2">
+                        <div class="country-placeholder">
+                            <span class="placeholder-icon">🌐</span>
+                            <p>Click another country to compare</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cultural Dimensions Chart -->
+                <div class="chart-section">
+                    <h3>Cultural Dimensions</h3>
+                    <div class="chart-container">
+                        <canvas id="cultural-chart" class="cultural-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Migration Trends Chart -->
+                <div class="chart-section">
+                    <h3>Migration Trends</h3>
+                    <div class="chart-container">
+                        <svg id="migration-chart" class="migration-chart"></svg>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-section">
+                    <h3>Detailed Data</h3>
+                    <div class="table-container">
+                        <table id="data-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th id="country1-header">Country 1</th>
+                                    <th id="country2-header">Country 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p id="loading-text">Loading data...</p>
+        </div>
+    </div>
+
+    <!-- Error Overlay -->
+    <div id="error-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div style="color: var(--error-color); font-size: 2rem;">⚠️</div>
+            <p id="error-text" style="color: var(--error-color);">Error loading application</p>
+            <button onclick="location.reload()" style="margin-top: 10px; padding: 8px 16px; border: none; border-radius: 4px; background: var(--primary-color); color: white; cursor: pointer;">Retry</button>
+        </div>
+    </div>
+
+    <!-- Web Components -->
+    <script src="components/world-map.js"></script>
+    <script src="components/cultural-chart.js"></script>
+    <script src="components/migration-chart.js"></script>
+    <script src="components/data-table.js"></script>
+    
+    <!-- Main Application -->
+    <script src="assets/app.js"></script>
+</body>
+</html>
