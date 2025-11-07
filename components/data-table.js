@@ -117,6 +117,14 @@ class DataTableComponent {
             type: 'text'
         });
         
+        rows.push({
+            label: 'Population',
+            description: '2024 population estimate',
+            country1: country1?.population || null,
+            country2: country2?.population || null,
+            type: 'population'
+        });
+        
         // Cultural dimensions
         Object.entries(this.culturalDimensions).forEach(([key, label]) => {
             rows.push({
@@ -150,6 +158,10 @@ class DataTableComponent {
                 const formatted = window.CultureFlowsUtils?.formatNumber(value) || value.toLocaleString();
                 return `<span style="color: #2563eb; font-weight: 500;">${formatted}</span>`;
             
+            case 'population':
+                const popFormatted = this.formatPopulation(value);
+                return `<span style="color: #059669; font-weight: 500;">${popFormatted}</span>`;
+            
             case 'percentage':
                 const color = value >= 0 ? '#16a34a' : '#dc2626';
                 const sign = value >= 0 ? '+' : '';
@@ -157,6 +169,35 @@ class DataTableComponent {
             
             default:
                 return `<span style="color: #374151;">${value}</span>`;
+        }
+    }
+
+    formatPopulation(population) {
+        if (!population || population === 0) {
+            return '-';
+        }
+        
+        if (population >= 1000000000) {
+            // Billions
+            const billions = population / 1000000000;
+            return billions >= 10 ? 
+                `${billions.toFixed(0)} Billion` : 
+                `${billions.toFixed(1)} Billion`;
+        } else if (population >= 1000000) {
+            // Millions
+            const millions = population / 1000000;
+            return millions >= 10 ? 
+                `${millions.toFixed(0)} Million` : 
+                `${millions.toFixed(1)} Million`;
+        } else if (population >= 1000) {
+            // Thousands
+            const thousands = population / 1000;
+            return thousands >= 10 ? 
+                `${thousands.toFixed(0)}K` : 
+                `${thousands.toFixed(1)}K`;
+        } else {
+            // Less than 1000
+            return population.toLocaleString();
         }
     }
 
