@@ -117,14 +117,6 @@ class DataTableComponent {
             type: 'text'
         });
         
-        // Separator
-        rows.push({
-            label: 'Cultural Dimensions',
-            country1: null,
-            country2: null,
-            type: 'separator'
-        });
-        
         // Cultural dimensions
         Object.entries(this.culturalDimensions).forEach(([key, label]) => {
             rows.push({
@@ -134,70 +126,6 @@ class DataTableComponent {
                 country2: country2?.[key] || null,
                 type: 'comparison'
             });
-        });
-        
-        // Separator
-        rows.push({
-            label: 'Migration Data',
-            country1: null,
-            country2: null,
-            type: 'separator'
-        });
-        
-        // Current year migration data
-        const migrationKey = this.currentFilter === 'all' ? 
-            this.currentYear.toString() : 
-            `${this.currentYear}_${this.currentFilter}`;
-        
-        rows.push({
-            label: `${this.currentYear} Migration (${this.getFilterLabel()})`,
-            country1: country1 ? country1[migrationKey] || 0 : null,
-            country2: country2 ? country2[migrationKey] || 0 : null,
-            type: 'migration'
-        });
-        
-        // Migration growth (compared to previous period)
-        const previousYear = this.getPreviousYear();
-        if (previousYear) {
-            const prevMigrationKey = this.currentFilter === 'all' ? 
-                previousYear.toString() : 
-                `${previousYear}_${this.currentFilter}`;
-            
-            const growth1 = this.calculateGrowth(
-                country1?.[prevMigrationKey] || 0,
-                country1?.[migrationKey] || 0
-            );
-            
-            const growth2 = this.calculateGrowth(
-                country2?.[prevMigrationKey] || 0,
-                country2?.[migrationKey] || 0
-            );
-            
-            rows.push({
-                label: `Growth since ${previousYear}`,
-                country1: country1 ? growth1 : null,
-                country2: country2 ? growth2 : null,
-                type: 'percentage'
-            });
-        }
-        
-        // Total migration (sum of all years)
-        const total1 = this.calculateTotalMigration(country1);
-        const total2 = this.calculateTotalMigration(country2);
-        
-        rows.push({
-            label: `Total Migration (All Years)`,
-            country1: total1,
-            country2: total2,
-            type: 'migration'
-        });
-        
-        // Average migration per year
-        rows.push({
-            label: `Average per Year`,
-            country1: total1 ? Math.round(total1 / 8) : null,
-            country2: total2 ? Math.round(total2 / 8) : null,
-            type: 'migration'
         });
         
         return rows;
