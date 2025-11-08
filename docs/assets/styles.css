@@ -291,6 +291,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    height: calc(100vh - 140px);
 }
 
 .panel-header {
@@ -306,6 +307,12 @@ body {
     font-size: var(--font-xl);
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .clear-btn {
@@ -428,7 +435,7 @@ body {
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
-    height: 200px;
+    height: 260px;
     display: flex;
     align-items: center;
     justify-content: center;

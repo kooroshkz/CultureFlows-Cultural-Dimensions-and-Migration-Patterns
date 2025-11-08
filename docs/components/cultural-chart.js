@@ -45,7 +45,8 @@ class CulturalChartComponent {
         this.height = rect.height;
         this.centerX = this.width / 2;
         this.centerY = this.height / 2;
-        this.radius = Math.min(this.width, this.height) * 0.35;
+        // Reduce radius to leave more space for labels
+        this.radius = Math.min(this.width, this.height) * 0.25;
     }
 
     drawEmptyState() {
@@ -133,20 +134,19 @@ class CulturalChartComponent {
 
     drawDimensionLabels() {
         const angleStep = (Math.PI * 2) / this.dimensions.length;
-        const labelDistance = this.radius + 30;
+        const labelDistance = this.radius + 40;
         
         this.ctx.fillStyle = '#374151';
-        this.ctx.font = '12px Inter, sans-serif';
-        this.ctx.textAlign = 'center';
+        this.ctx.font = '11px Inter, sans-serif';
         this.ctx.textBaseline = 'middle';
         
         const dimensionNames = {
-            'pdi': 'Power Distance',
-            'idv': 'Individualism',
-            'mas': 'Masculinity',
-            'uai': 'Uncertainty Avoidance',
-            'lto': 'Long-term Orientation',
-            'ivr': 'Indulgence vs Restraint'
+            'pdi': ['Power', 'Distance'],
+            'idv': ['Individualism'],
+            'mas': ['Masculinity'],
+            'uai': ['Uncertainty', 'Avoidance'],
+            'lto': ['Long-term', 'Orientation'],
+            'ivr': ['Indulgence vs', 'Restraint']
         };
         
         this.dimensions.forEach((dimension, index) => {
@@ -163,11 +163,13 @@ class CulturalChartComponent {
                 this.ctx.textAlign = 'center';
             }
             
-            this.ctx.fillText(
-                dimensionNames[dimension] || dimension.toUpperCase(),
-                labelX,
-                labelY
-            );
+            const lines = dimensionNames[dimension] || [dimension.toUpperCase()];
+            
+            // Draw multi-line text
+            lines.forEach((line, lineIndex) => {
+                const lineY = labelY + (lineIndex - (lines.length - 1) / 2) * 12;
+                this.ctx.fillText(line, labelX, lineY);
+            });
         });
     }
 
@@ -218,25 +220,60 @@ class CulturalChartComponent {
     drawLegend() {
         if (this.countries.length === 0) return;
         
-        const legendX = 20;
-        const legendY = 20;
-        const itemHeight = 20;
-        
         this.ctx.font = '12px Inter, sans-serif';
-        this.ctx.textAlign = 'left';
         this.ctx.textBaseline = 'middle';
         
         this.countries.forEach((country, index) => {
-            const y = legendY + index * itemHeight;
             const color = this.colors[index % this.colors.length];
             
-            // Draw color indicator
-            this.ctx.fillStyle = color;
-            this.ctx.fillRect(legendX, y - 6, 12, 12);
-            
-            // Draw country name
-            this.ctx.fillStyle = '#374151';
-            this.ctx.fillText(country.country, legendX + 20, y);
+            if (index === 0) {
+                // First country - position on the left
+                const legendX = 20;
+                const legendY = 20;
+                
+                this.ctx.textAlign = 'left';
+                
+                // Draw color indicator
+                this.ctx.fillStyle = color;
+                this.ctx.fillRect(legendX, legendY - 6, 12, 12);
+                
+                // Draw country name
+                this.ctx.fillStyle = '#374151';
+                this.ctx.fillText(country.country, legendX + 20, legendY);
+                
+            } else if (index === 1) {
+                // Second country - position on the right
+                const legendY = 20;
+                const legendX = this.width - 20;
+                
+                this.ctx.textAlign = 'right';
+                
+                // Measure text width to position color indicator correctly
+                const textWidth = this.ctx.measureText(country.country).width;
+                
+                // Draw color indicator (positioned to the left of right-aligned text with better spacing)
+                this.ctx.fillStyle = color;
+                this.ctx.fillRect(legendX - textWidth - 40, legendY - 6, 12, 12);
+                
+                // Draw country name
+                this.ctx.fillStyle = '#374151';
+                this.ctx.fillText(country.country, legendX - 20, legendY);
+                
+            } else {
+                // Additional countries (if any) - stack vertically on the left
+                const legendX = 20;
+                const legendY = 20 + (index - 1) * 20;
+                
+                this.ctx.textAlign = 'left';
+                
+                // Draw color indicator
+                this.ctx.fillStyle = color;
+                this.ctx.fillRect(legendX, legendY - 6, 12, 12);
+                
+                // Draw country name
+                this.ctx.fillStyle = '#374151';
+                this.ctx.fillText(country.country, legendX + 20, legendY);
+            }
         });
     }
 

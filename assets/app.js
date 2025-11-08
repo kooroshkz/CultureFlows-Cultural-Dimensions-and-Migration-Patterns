@@ -153,6 +153,13 @@ class CultureFlowsApp {
         clearBtn.addEventListener('click', () => {
             this.clearSelection();
         });
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            if (this.culturalChart) {
+                this.culturalChart.resize();
+            }
+        });
     }
 
     initializeComponents() {
