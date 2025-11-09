@@ -1,0 +1,928 @@
+{
+  "clusters": {
+    "0": {
+      "name": "Structured Individualistic",
+      "description": "Individualistic with formal structures and rules",
+      "color": "#FF6B6B",
+      "countries": [
+        "Denmark",
+        "Estonia",
+        "Finland",
+        "Iceland",
+        "Latvia",
+        "Lithuania",
+        "Norway",
+        "Sweden",
+        "Slovenia",
+        "Luxembourg",
+        "Netherlands"
+      ],
+      "size": 11,
+      "cultural_profile": {
+        "power_distance": 38.0,
+        "individualism": 76.63636363636364,
+        "masculinity": 18.727272727272727,
+        "uncertainty_avoidance": 55.45454545454545,
+        "long_term_orientation": 59.63636363636363,
+        "indulgence": 49.45454545454545
+      },
+      "migration_level": "Very High"
+    },
+    "1": {
+      "name": "Structured Individualistic",
+      "description": "Individualistic with formal structures and rules",
+      "color": "#4ECDC4",
+      "countries": [
+        "Hong Kong",
+        "Taiwan",
+        "Japan",
+        "Singapore",
+        "Israel",
+        "Czechia",
+        "Hungary",
+        "Ireland",
+        "United Kingdom",
+        "Greece",
+        "Italy",
+        "Spain",
+        "Austria",
+        "Belgium",
+        "France",
+        "Germany",
+        "Switzerland",
+        "Argentina",
+        "Canada",
+        "United States of America",
+        "Australia",
+        "New Zealand"
+      ],
+      "size": 22,
+      "cultural_profile": {
+        "power_distance": 45.5,
+        "individualism": 64.54545454545455,
+        "masculinity": 60.95454545454545,
+        "uncertainty_avoidance": 64.5,
+        "long_term_orientation": 56.77272727272727,
+        "indulgence": 50.76818181818182
+      },
+      "migration_level": "Very High"
+    },
+    "2": {
+      "name": "Traditional Hierarchical",
+      "description": "High power distance, collectivistic, rule-oriented",
+      "color": "#45B7D1",
+      "countries": [
+        "Ethiopia",
+        "Kenya",
+        "Malawi",
+        "Mozambique",
+        "Zambia",
+        "Angola",
+        "Libya",
+        "Namibia",
+        "Ghana",
+        "Nigeria",
+        "Senegal",
+        "Sierra Leone",
+        "Indonesia",
+        "Philippines",
+        "Viet Nam",
+        "Dominican Republic",
+        "Jamaica",
+        "Puerto Rico",
+        "Trinidad and Tobago",
+        "Costa Rica",
+        "El Salvador",
+        "Honduras",
+        "Mexico",
+        "Panama",
+        "Brazil",
+        "Chile",
+        "Colombia",
+        "Ecuador",
+        "Paraguay",
+        "Peru",
+        "Venezuela"
+      ],
+      "size": 31,
+      "cultural_profile": {
+        "power_distance": 71.58064516129032,
+        "individualism": 22.64516129032258,
+        "masculinity": 49.16129032258065,
+        "uncertainty_avoidance": 60.45161290322581,
+        "long_term_orientation": 19.225806451612904,
+        "indulgence": 65.66129032258064
+      },
+      "migration_level": "Very High"
+    },
+    "3": {
+      "name": "Moderate Hierarchical",
+      "description": "Balanced individualism with respect for authority",
+      "color": "#96CEB4",
+      "countries": [
+        "Algeria",
+        "Morocco",
+        "Tunisia",
+        "Mongolia",
+        "Bhutan",
+        "Sri Lanka",
+        "Georgia",
+        "Iraq",
+        "Bulgaria",
+        "Republic of Moldova",
+        "Romania",
+        "Albania",
+        "Bosnia and Herzegovina",
+        "Malta",
+        "Montenegro",
+        "North Macedonia",
+        "Guatemala",
+        "Bolivia",
+        "Suriname",
+        "Uruguay",
+        "Fiji"
+      ],
+      "size": 21,
+      "cultural_profile": {
+        "power_distance": 81.42857142857143,
+        "individualism": 35.23809523809524,
+        "masculinity": 42.666666666666664,
+        "uncertainty_avoidance": 77.57142857142857,
+        "long_term_orientation": 36.02857142857143,
+        "indulgence": 36.84761904761905
+      },
+      "migration_level": "Very High"
+    },
+    "4": {
+      "name": "Moderate Hierarchical",
+      "description": "Balanced individualism with respect for authority",
+      "color": "#FFEAA7",
+      "countries": [
+        "Tanzania",
+        "Egypt",
+        "Burkina Faso",
+        "Kazakhstan",
+        "China",
+        "Republic of Korea",
+        "Bangladesh",
+        "India",
+        "Iran",
+        "Nepal",
+        "Pakistan",
+        "Malaysia",
+        "Thailand",
+        "Armenia",
+        "Azerbaijan",
+        "Jordan",
+        "Kuwait",
+        "Lebanon",
+        "Qatar",
+        "Saudi Arabia",
+        "Syrian Arab Republic",
+        "T\u00fcrkiye",
+        "United Arab Emirates",
+        "Belarus",
+        "Poland",
+        "Russian Federation",
+        "Ukraine",
+        "Croatia",
+        "Portugal",
+        "Serbia"
+      ],
+      "size": 30,
+      "cultural_profile": {
+        "power_distance": 75.9,
+        "individualism": 31.633333333333333,
+        "masculinity": 45.8,
+        "uncertainty_avoidance": 70.13333333333334,
+        "long_term_orientation": 42.419999999999995,
+        "indulgence": 26.009999999999998
+      },
+      "migration_level": "Very High"
+    },
+    "5": {
+      "name": "Mixed Cultural Pattern",
+      "description": "Unique combination of cultural characteristics",
+      "color": "#DDA0DD",
+      "countries": [
+        "South America"
+      ],
+      "size": 1,
+      "cultural_profile": {
+        "power_distance": 49.0,
+        "individualism": 23.0,
+        "masculinity": 63.0,
+        "uncertainty_avoidance": 49.0,
+        "long_term_orientation": 18.0,
+        "indulgence": 63.0
+      },
+      "migration_level": "Very High"
+    }
+  },
+  "countries": [
+    {
+      "country": "Ethiopia",
+      "cluster": 2,
+      "pca_x": -0.7618728605411886,
+      "pca_y": -1.7499418902100379
+    },
+    {
+      "country": "Kenya",
+      "cluster": 2,
+      "pca_x": -0.5807804317626952,
+      "pca_y": -1.7049763912707496
+    },
+    {
+      "country": "Malawi",
+      "cluster": 2,
+      "pca_x": -0.9913489120407991,
+      "pca_y": 0.017271906636210924
+    },
+    {
+      "country": "Mozambique",
+      "cluster": 2,
+      "pca_x": -1.6539130536177136,
+      "pca_y": -0.42087200804682373
+    },
+    {
+      "country": "Tanzania",
+      "cluster": 4,
+      "pca_x": -0.09982002919433391,
+      "pca_y": -0.6687856430954691
+    },
+    {
+      "country": "Zambia",
+      "cluster": 2,
+      "pca_x": -0.5618414639002759,
+      "pca_y": 0.3548686587857727
+    },
+    {
+      "country": "Angola",
+      "cluster": 2,
+      "pca_x": -1.8871824610701677,
+      "pca_y": 0.1442143651471417
+    },
+    {
+      "country": "Algeria",
+      "cluster": 3,
+      "pca_x": -1.0828026960585595,
+      "pca_y": -0.5780093759444617
+    },
+    {
+      "country": "Egypt",
+      "cluster": 4,
+      "pca_x": -1.0193753439382,
+      "pca_y": -1.7629955944692872
+    },
+    {
+      "country": "Libya",
+      "cluster": 2,
+      "pca_x": -1.355300459872248,
+      "pca_y": -1.3467700504043132
+    },
+    {
+      "country": "Morocco",
+      "cluster": 3,
+      "pca_x": -1.6185985529222207,
+      "pca_y": -0.4306922387133103
+    },
+    {
+      "country": "Tunisia",
+      "cluster": 3,
+      "pca_x": -2.048844106463729,
+      "pca_y": 0.2984901325540626
+    },
+    {
+      "country": "Namibia",
+      "cluster": 2,
+      "pca_x": -1.190472469448597,
+      "pca_y": 0.9438367178959897
+    },
+    {
+      "country": "Burkina Faso",
+      "cluster": 4,
+      "pca_x": -0.35836056664328525,
+      "pca_y": -1.2032403089651371
+    },
+    {
+      "country": "Ghana",
+      "cluster": 2,
+      "pca_x": -1.8379357988090759,
+      "pca_y": -0.874852881163121
+    },
+    {
+      "country": "Nigeria",
+      "cluster": 2,
+      "pca_x": -1.0477976784727308,
+      "pca_y": -1.9155628489636212
+    },
+    {
+      "country": "Senegal",
+      "cluster": 2,
+      "pca_x": -0.971328843445001,
+      "pca_y": -0.10917241695455199
+    },
+    {
+      "country": "Sierra Leone",
+      "cluster": 2,
+      "pca_x": -2.0703383587220427,
+      "pca_y": 0.4357858025720819
+    },
+    {
+      "country": "Kazakhstan",
+      "cluster": 4,
+      "pca_x": 1.0680357556010915,
+      "pca_y": -1.5180699500541417
+    },
+    {
+      "country": "China",
+      "cluster": 4,
+      "pca_x": 1.160981751138019,
+      "pca_y": -0.48656064869794785
+    },
+    {
+      "country": "Hong Kong",
+      "cluster": 1,
+      "pca_x": 2.5360626294788604,
+      "pca_y": -0.08978357706514789
+    },
+    {
+      "country": "Taiwan",
+      "cluster": 1,
+      "pca_x": 1.3449224206838348,
+      "pca_y": 0.39554937863588197
+    },
+    {
+      "country": "Japan",
+      "cluster": 1,
+      "pca_x": 3.0401529250869546,
+      "pca_y": -1.03704162556467
+    },
+    {
+      "country": "Mongolia",
+      "cluster": 3,
+      "pca_x": -2.7939152845643305,
+      "pca_y": 1.7310079318065876
+    },
+    {
+      "country": "Republic of Korea",
+      "cluster": 4,
+      "pca_x": 1.1056360426067648,
+      "pca_y": 0.7530315531670478
+    },
+    {
+      "country": "Bangladesh",
+      "cluster": 4,
+      "pca_x": -0.028400809746358165,
+      "pca_y": -2.205899878893896
+    },
+    {
+      "country": "Bhutan",
+      "cluster": 3,
+      "pca_x": -2.584854671788138,
+      "pca_y": 1.860674991410648
+    },
+    {
+      "country": "India",
+      "cluster": 4,
+      "pca_x": 1.8378154592008662,
+      "pca_y": -2.463177608193333
+    },
+    {
+      "country": "Iran",
+      "cluster": 4,
+      "pca_x": 0.8413762717244471,
+      "pca_y": -1.1614279591018284
+    },
+    {
+      "country": "Nepal",
+      "cluster": 4,
+      "pca_x": 0.3300796261003248,
+      "pca_y": -0.46733173092156005
+    },
+    {
+      "country": "Pakistan",
+      "cluster": 4,
+      "pca_x": 0.8100403326209369,
+      "pca_y": -2.573803135898935
+    },
+    {
+      "country": "Sri Lanka",
+      "cluster": 3,
+      "pca_x": -1.8242509773395774,
+      "pca_y": 1.219120729320467
+    },
+    {
+      "country": "Indonesia",
+      "cluster": 2,
+      "pca_x": -1.2189489063004433,
+      "pca_y": -1.2680752979473016
+    },
+    {
+      "country": "Malaysia",
+      "cluster": 4,
+      "pca_x": 0.4014419294879686,
+      "pca_y": -1.3120771621788292
+    },
+    {
+      "country": "Philippines",
+      "cluster": 2,
+      "pca_x": -1.2636150084368893,
+      "pca_y": -1.1309761440406052
+    },
+    {
+      "country": "Singapore",
+      "cluster": 1,
+      "pca_x": 1.498909702735931,
+      "pca_y": 0.25266712874499964
+    },
+    {
+      "country": "Thailand",
+      "cluster": 4,
+      "pca_x": 0.9046165442776732,
+      "pca_y": -0.5182573690361769
+    },
+    {
+      "country": "Viet Nam",
+      "cluster": 2,
+      "pca_x": -0.8138173699062344,
+      "pca_y": 0.3081330937657253
+    },
+    {
+      "country": "Armenia",
+      "cluster": 4,
+      "pca_x": -0.9467018121933055,
+      "pca_y": -1.0056327341246516
+    },
+    {
+      "country": "Azerbaijan",
+      "cluster": 4,
+      "pca_x": -0.3366877976083819,
+      "pca_y": -0.8047073878622825
+    },
+    {
+      "country": "Georgia",
+      "cluster": 3,
+      "pca_x": -1.7791177777701503,
+      "pca_y": -0.28649713913587876
+    },
+    {
+      "country": "Iraq",
+      "cluster": 3,
+      "pca_x": -1.6503689727447555,
+      "pca_y": -1.8618190600766047
+    },
+    {
+      "country": "Israel",
+      "cluster": 1,
+      "pca_x": 2.2922844360718964,
+      "pca_y": 0.6315539547933559
+    },
+    {
+      "country": "Jordan",
+      "cluster": 4,
+      "pca_x": 0.28764823909786,
+      "pca_y": -1.2660517815767502
+    },
+    {
+      "country": "Kuwait",
+      "cluster": 4,
+      "pca_x": 0.08944388531611298,
+      "pca_y": -0.8068188044650135
+    },
+    {
+      "country": "Lebanon",
+      "cluster": 4,
+      "pca_x": 0.4538340662955669,
+      "pca_y": -0.47001851871885664
+    },
+    {
+      "country": "Qatar",
+      "cluster": 4,
+      "pca_x": -1.3611604625099991,
+      "pca_y": -1.4672343650634014
+    },
+    {
+      "country": "Saudi Arabia",
+      "cluster": 4,
+      "pca_x": 1.3959946660050913,
+      "pca_y": -1.3718024971058058
+    },
+    {
+      "country": "Syrian Arab Republic",
+      "cluster": 4,
+      "pca_x": 0.011727598061747613,
+      "pca_y": -1.0940102445922268
+    },
+    {
+      "country": "T\u00fcrkiye",
+      "cluster": 4,
+      "pca_x": 1.0465264140650024,
+      "pca_y": -0.9658888309659632
+    },
+    {
+      "country": "United Arab Emirates",
+      "cluster": 4,
+      "pca_x": 0.5962215188809518,
+      "pca_y": -1.3632704605221835
+    },
+    {
+      "country": "Belarus",
+      "cluster": 4,
+      "pca_x": 0.28678359852569535,
+      "pca_y": -0.5681170384256687
+    },
+    {
+      "country": "Bulgaria",
+      "cluster": 3,
+      "pca_x": -0.8232573867177762,
+      "pca_y": 0.6825646952609578
+    },
+    {
+      "country": "Czechia",
+      "cluster": 1,
+      "pca_x": 1.2149421246217975,
+      "pca_y": 0.307455657128353
+    },
+    {
+      "country": "Hungary",
+      "cluster": 1,
+      "pca_x": 1.1295157157255284,
+      "pca_y": -0.01570622808557408
+    },
+    {
+      "country": "Poland",
+      "cluster": 4,
+      "pca_x": 0.8102610390751214,
+      "pca_y": -1.0484240184179254
+    },
+    {
+      "country": "Republic of Moldova",
+      "cluster": 3,
+      "pca_x": -0.7813374756551812,
+      "pca_y": -0.16611006437312034
+    },
+    {
+      "country": "Romania",
+      "cluster": 3,
+      "pca_x": -1.0569531862199788,
+      "pca_y": -0.546168056822566
+    },
+    {
+      "country": "Russian Federation",
+      "cluster": 4,
+      "pca_x": 1.9871580773643998,
+      "pca_y": -2.149657834378234
+    },
+    {
+      "country": "Ukraine",
+      "cluster": 4,
+      "pca_x": 1.5502742114592003,
+      "pca_y": -1.3919843746136382
+    },
+    {
+      "country": "Denmark",
+      "cluster": 0,
+      "pca_x": 1.9807361619344372,
+      "pca_y": 3.5440414781658323
+    },
+    {
+      "country": "Estonia",
+      "cluster": 0,
+      "pca_x": 0.9367131006182833,
+      "pca_y": 2.0361103923742054
+    },
+    {
+      "country": "Finland",
+      "cluster": 0,
+      "pca_x": 0.9731781951692289,
+      "pca_y": 2.6737436772730576
+    },
+    {
+      "country": "Iceland",
+      "cluster": 0,
+      "pca_x": -0.4822093431914706,
+      "pca_y": 4.630560359724821
+    },
+    {
+      "country": "Ireland",
+      "cluster": 1,
+      "pca_x": 1.6304973005499814,
+      "pca_y": 0.8365187307048377
+    },
+    {
+      "country": "Latvia",
+      "cluster": 0,
+      "pca_x": 1.135642460659322,
+      "pca_y": 2.2757051411632605
+    },
+    {
+      "country": "Lithuania",
+      "cluster": 0,
+      "pca_x": 0.14943810097820062,
+      "pca_y": 1.7973568499962238
+    },
+    {
+      "country": "Norway",
+      "cluster": 0,
+      "pca_x": 1.3912792399136313,
+      "pca_y": 2.911427989586507
+    },
+    {
+      "country": "Sweden",
+      "cluster": 0,
+      "pca_x": 2.140251711240331,
+      "pca_y": 2.960167970995807
+    },
+    {
+      "country": "United Kingdom",
+      "cluster": 1,
+      "pca_x": 3.5141801199841707,
+      "pca_y": 0.30775637351056345
+    },
+    {
+      "country": "Albania",
+      "cluster": 3,
+      "pca_x": -1.4038488181661306,
+      "pca_y": -0.6145569540531174
+    },
+    {
+      "country": "Bosnia and Herzegovina",
+      "cluster": 3,
+      "pca_x": -1.8761878932745706,
+      "pca_y": 0.23037671408057075
+    },
+    {
+      "country": "Croatia",
+      "cluster": 4,
+      "pca_x": -0.015502369169086793,
+      "pca_y": -0.08517775121419809
+    },
+    {
+      "country": "Greece",
+      "cluster": 1,
+      "pca_x": 1.2007241588329796,
+      "pca_y": -0.19298520823599685
+    },
+    {
+      "country": "Italy",
+      "cluster": 1,
+      "pca_x": 2.068396813683681,
+      "pca_y": -1.240915091108154
+    },
+    {
+      "country": "Malta",
+      "cluster": 3,
+      "pca_x": -1.3129681805824125,
+      "pca_y": 2.148841214011271
+    },
+    {
+      "country": "Montenegro",
+      "cluster": 3,
+      "pca_x": -1.8233950405019241,
+      "pca_y": -0.011665221120189095
+    },
+    {
+      "country": "North Macedonia",
+      "cluster": 3,
+      "pca_x": -1.3617392153734778,
+      "pca_y": -0.01319671503308955
+    },
+    {
+      "country": "Portugal",
+      "cluster": 4,
+      "pca_x": 0.6073532650646276,
+      "pca_y": 0.21401657697315984
+    },
+    {
+      "country": "Serbia",
+      "cluster": 4,
+      "pca_x": 0.13183507088314242,
+      "pca_y": -0.9486780697601837
+    },
+    {
+      "country": "Slovenia",
+      "cluster": 0,
+      "pca_x": -0.015204697408461088,
+      "pca_y": 1.8787882938356384
+    },
+    {
+      "country": "Spain",
+      "cluster": 1,
+      "pca_x": 2.043168454465659,
+      "pca_y": -0.3058497239384953
+    },
+    {
+      "country": "Austria",
+      "cluster": 1,
+      "pca_x": 2.5079140334913235,
+      "pca_y": 1.0490608074309558
+    },
+    {
+      "country": "Belgium",
+      "cluster": 1,
+      "pca_x": 1.7764139106730454,
+      "pca_y": 0.34331709551654993
+    },
+    {
+      "country": "France",
+      "cluster": 1,
+      "pca_x": 2.6756226325476873,
+      "pca_y": -0.5701867290152824
+    },
+    {
+      "country": "Germany",
+      "cluster": 1,
+      "pca_x": 3.8362619597936436,
+      "pca_y": -0.4557518110522255
+    },
+    {
+      "country": "Luxembourg",
+      "cluster": 0,
+      "pca_x": 0.5025522334998722,
+      "pca_y": 2.0675346513555066
+    },
+    {
+      "country": "Netherlands",
+      "cluster": 0,
+      "pca_x": 2.754424861091754,
+      "pca_y": 2.5004965066894482
+    },
+    {
+      "country": "Switzerland",
+      "cluster": 1,
+      "pca_x": 2.2692804174038232,
+      "pca_y": 0.7553473680167307
+    },
+    {
+      "country": "Dominican Republic",
+      "cluster": 2,
+      "pca_x": -0.5714328904855236,
+      "pca_y": -0.3081713976710741
+    },
+    {
+      "country": "Jamaica",
+      "cluster": 2,
+      "pca_x": -1.7111492426697634,
+      "pca_y": 1.8347864078043232
+    },
+    {
+      "country": "Puerto Rico",
+      "cluster": 2,
+      "pca_x": -0.43718393286014473,
+      "pca_y": 0.7432064498895139
+    },
+    {
+      "country": "Trinidad and Tobago",
+      "cluster": 2,
+      "pca_x": -1.8446205082493699,
+      "pca_y": 1.3040003986616642
+    },
+    {
+      "country": "Costa Rica",
+      "cluster": 2,
+      "pca_x": -0.7305877167780976,
+      "pca_y": 0.7940974995259346
+    },
+    {
+      "country": "El Salvador",
+      "cluster": 2,
+      "pca_x": -2.524278161202554,
+      "pca_y": 0.7667697083164073
+    },
+    {
+      "country": "Guatemala",
+      "cluster": 3,
+      "pca_x": -2.229755217035254,
+      "pca_y": -0.022951784019541965
+    },
+    {
+      "country": "Honduras",
+      "cluster": 2,
+      "pca_x": -2.673141933918193,
+      "pca_y": 0.6341018251406405
+    },
+    {
+      "country": "Mexico",
+      "cluster": 2,
+      "pca_x": -0.24284669830979283,
+      "pca_y": -1.3458065787921225
+    },
+    {
+      "country": "Panama",
+      "cluster": 2,
+      "pca_x": -2.4255147931431953,
+      "pca_y": -0.5588452059350517
+    },
+    {
+      "country": "South America",
+      "cluster": 5,
+      "pca_x": 0.11340717960749266,
+      "pca_y": 2.077364529525959
+    },
+    {
+      "country": "Argentina",
+      "cluster": 1,
+      "pca_x": 1.2204570554052887,
+      "pca_y": -0.5325592930240401
+    },
+    {
+      "country": "Bolivia",
+      "cluster": 3,
+      "pca_x": -1.8132913944366067,
+      "pca_y": -0.3131983494811711
+    },
+    {
+      "country": "Brazil",
+      "cluster": 2,
+      "pca_x": 0.0025669993837855102,
+      "pca_y": -0.9305717096080703
+    },
+    {
+      "country": "Chile",
+      "cluster": 2,
+      "pca_x": -0.6869796282324304,
+      "pca_y": 0.4468599202069307
+    },
+    {
+      "country": "Colombia",
+      "cluster": 2,
+      "pca_x": -1.5631082319086027,
+      "pca_y": -0.512614306052087
+    },
+    {
+      "country": "Ecuador",
+      "cluster": 2,
+      "pca_x": -1.1400211787103995,
+      "pca_y": -0.6685068159915706
+    },
+    {
+      "country": "Paraguay",
+      "cluster": 2,
+      "pca_x": -1.7284692008168019,
+      "pca_y": -0.22851005488716816
+    },
+    {
+      "country": "Peru",
+      "cluster": 2,
+      "pca_x": -1.8972870369976027,
+      "pca_y": -0.4287613516529613
+    },
+    {
+      "country": "Suriname",
+      "cluster": 3,
+      "pca_x": -2.6318270246761717,
+      "pca_y": 1.305767028749299
+    },
+    {
+      "country": "Uruguay",
+      "cluster": 3,
+      "pca_x": -1.0047784953052132,
+      "pca_y": 1.1870119325012862
+    },
+    {
+      "country": "Venezuela",
+      "cluster": 2,
+      "pca_x": -0.5749454778494575,
+      "pca_y": -1.6242802663599407
+    },
+    {
+      "country": "Canada",
+      "cluster": 1,
+      "pca_x": 3.120506871943449,
+      "pca_y": 0.3596478629068411
+    },
+    {
+      "country": "United States of America",
+      "cluster": 1,
+      "pca_x": 4.133033071042996,
+      "pca_y": -1.2028276787146333
+    },
+    {
+      "country": "Australia",
+      "cluster": 1,
+      "pca_x": 3.0559731917302178,
+      "pca_y": 0.3935715643933412
+    },
+    {
+      "country": "New Zealand",
+      "cluster": 1,
+      "pca_x": 2.0037374139618187,
+      "pca_y": 1.7353459082721872
+    },
+    {
+      "country": "Fiji",
+      "cluster": 3,
+      "pca_x": -2.784656659186449,
+      "pca_y": 1.684915316917407
+    }
+  ],
+  "pca_explained_variance": [
+    0.29772541360838195,
+    0.1972831134213933
+  ],
+  "feature_importance": {
+    "cultural_weight": 0.6,
+    "migration_weight": 0.4
+  }
+}

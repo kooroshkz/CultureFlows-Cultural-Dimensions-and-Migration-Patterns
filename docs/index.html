@@ -73,7 +73,8 @@
                     <button id="clear-selection" class="clear-btn">Clear Selection</button>
                 </div>
 
-                <!-- Country Selection Area -->
+                <div class="panel-content">
+                    <!-- Country Selection Area -->
                 <div class="country-selection">
                     <div class="selected-country" id="country-1">
                         <div class="country-placeholder">
@@ -128,6 +129,20 @@
                         </table>
                     </div>
                 </div>
+                </div>
+            </section>
+
+            <!-- Insights Panel -->
+            <section class="insights-panel">
+                <div class="insights-container">
+                    <div class="insights-header">
+                        <h2>Insights</h2>
+                        <p>AI-powered analysis of cultural patterns and migration clusters</p>
+                    </div>
+                    <div id="country-insights" class="insights-content">
+                        <!-- Country insights will be populated by JavaScript -->
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -154,6 +169,7 @@
     <script src="components/cultural-chart.js"></script>
     <script src="components/migration-chart.js"></script>
     <script src="components/data-table.js"></script>
+    <script src="components/country-insights.js"></script>
     
     <!-- Main Application -->
     <script src="assets/app.js"></script>

@@ -210,6 +210,16 @@ class CultureFlowsApp {
             console.error('Failed to create data table:', error);
         }
 
+        // Initialize country insights
+        try {
+            if (window.CountryInsights) {
+                console.log('Creating country insights component...');
+                this.countryInsights = new CountryInsights('country-insights');
+            }
+        } catch (error) {
+            console.error('Failed to create country insights:', error);
+        }
+
         // Initial map update
         setTimeout(() => {
             console.log('Updating initial map colors...');
@@ -297,6 +307,7 @@ class CultureFlowsApp {
         this.updateCharts();
         this.updateDataTable();
         this.updateMapSelection();
+        this.updateInsights();
     }
 
     updateCountryDisplay(elementId, countryData) {
@@ -372,6 +383,17 @@ class CultureFlowsApp {
         country2Header.textContent = this.selectedCountries.secondary?.country || 'Country 2';
     }
 
+    updateInsights() {
+        if (this.countryInsights) {
+            const selectedCountries = [
+                this.selectedCountries.primary?.country,
+                this.selectedCountries.secondary?.country
+            ].filter(Boolean);
+            
+            this.countryInsights.highlightCountries(selectedCountries);
+        }
+    }
+
     clearSelection() {
         this.selectedCountries = { primary: null, secondary: null };
         
@@ -391,6 +413,7 @@ class CultureFlowsApp {
         this.updateCharts();
         this.updateDataTable();
         this.updateMapSelection();
+        this.updateInsights();
     }
 
     getCountryFlag(countryName) {

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustering Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-container { max-width: 1200px; margin: 0 auto; }
+        #insights-test { border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧠 Country Clustering Test</h1>
+        <p>Testing the clustering insights component...</p>
+        <div id="insights-test"></div>
+    </div>
+
+    <script>
+        // Test basic data loading
+        async function testClustering() {
+            try {
+                const response = await fetch('./data/clustering_results.json');
+                const data = await response.json();
+                
+                console.log('✅ Clustering data loaded successfully');
+                console.log('📊 Clusters found:', Object.keys(data.clusters).length);
+                console.log('🌍 Countries analyzed:', data.countries.length);
+                
+                // Show basic stats
+                document.getElementById('insights-test').innerHTML = `
+                    <h3>✅ Clustering Data Loaded Successfully!</h3>
+                    <ul>
+                        <li><strong>Clusters Generated:</strong> ${Object.keys(data.clusters).length}</li>
+                        <li><strong>Countries Analyzed:</strong> ${data.countries.length}</li>
+                        <li><strong>PCA Variance Explained:</strong> ${Math.round((data.pca_explained_variance[0] + data.pca_explained_variance[1]) * 100)}%</li>
+                    </ul>
+                    <h4>📋 Cluster Overview:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        ${Object.entries(data.clusters).map(([id, cluster]) => `
+                            <div style="border: 1px solid ${cluster.color}; padding: 1rem; border-radius: 6px; border-left: 4px solid ${cluster.color};">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <strong style="color: ${cluster.color};">${cluster.name}</strong>
+                                    <span style="background: ${cluster.color}20; color: ${cluster.color}; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">${cluster.size} countries</span>
+                                </div>
+                                <p style="margin: 0.5rem 0; font-size: 0.9rem; color: #666;">${cluster.description}</p>
+                                <div style="font-size: 0.8rem;">
+                                    <strong>Examples:</strong> ${cluster.countries.slice(0, 3).join(', ')}${cluster.countries.length > 3 ? `, +${cluster.countries.length - 3} more` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('❌ Error loading clustering data:', error);
+                document.getElementById('insights-test').innerHTML = `
+                    <h3 style="color: red;">❌ Error Loading Clustering Data</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Make sure the server is running and clustering_results.json exists in the data folder.</p>
+                `;
+            }
+        }
+
+        // Run test when page loads
+        document.addEventListener('DOMContentLoaded', testClustering);
+    </script>
+</body>
+</html>
