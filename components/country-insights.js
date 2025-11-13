@@ -18,12 +18,24 @@ class CountryInsights {
 
     async loadClusterData() {
         try {
-            // Try src/output first, then data folder as fallback
+            // Try different paths based on environment
             let response;
-            try {
-                response = await fetch('src/output/clustering_results.json');
-            } catch (e) {
-                response = await fetch('data/clustering_results.json');
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            
+            if (isGitHubPages) {
+                // For GitHub Pages, try data folder first, then src/output
+                try {
+                    response = await fetch('./data/clustering_results.json');
+                } catch (e) {
+                    response = await fetch('./src/output/clustering_results.json');
+                }
+            } else {
+                // For local server, try src/output first, then data folder
+                try {
+                    response = await fetch('src/output/clustering_results.json');
+                } catch (e) {
+                    response = await fetch('data/clustering_results.json');
+                }
             }
             
             if (!response.ok) {
@@ -31,7 +43,9 @@ class CountryInsights {
             }
             
             this.clusterData = await response.json();
-            console.log('Loaded cluster data:', this.clusterData);
+            console.log('Loaded cluster data from URL:', response.url);
+            console.log('First cluster name:', this.clusterData.clusters['0']?.name);
+            console.log('Environment:', window.location.hostname.includes('github.io') ? 'GitHub Pages' : 'Local');
         } catch (error) {
             console.error('Error loading clustering data:', error);
             throw error;
