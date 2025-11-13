@@ -92,7 +92,8 @@ def create_country_clustering():
     
     # Create cluster analysis
     cluster_stats = {}
-    cluster_colors = ['#E74C3C', '#3498DB', '#2ECC71', '#9B59B6', '#F39C12', '#1ABC9C', '#E67E22', '#34495E']
+    # Okabe and Ito color palette - colorblind friendly (with custom replacement for yellow)
+    cluster_colors = ['#000000', '#009E73', '#0072B2', '#56B4E9', '#C26A77', '#E69F00', '#D55E00', '#CC79A7']
     
     for i in range(n_clusters):
         cluster_data = df_clean[df_clean['cluster'] == i]
@@ -155,115 +156,73 @@ def create_country_clustering():
     
     return clustering_results
 
-def determine_cluster_profile(cultural_means, migration_level):
+def determine_cluster_profile(cultural_profile, migration_ratio):
     """
-    Determine cluster profile based on all 6 Hofstede cultural dimensions
+    Create simple, intuitive cluster names for general audiences
     """
-    pdi = cultural_means['pdi']  # Power Distance
-    idv = cultural_means['idv']  # Individualism
-    mas = cultural_means['mas']  # Masculinity
-    uai = cultural_means['uai']  # Uncertainty Avoidance  
-    lto = cultural_means['lto']  # Long-term Orientation
-    ivr = cultural_means['ivr']  # Indulgence vs Restraint
+    pdi = cultural_profile['pdi']
+    idv = cultural_profile['idv']
+    mas = cultural_profile['mas']
+    uai = cultural_profile['uai']
+    lto = cultural_profile['lto']
+    ivr = cultural_profile['ivr']
     
-    # More comprehensive cultural categorization using all dimensions
+    # Define thresholds (based on global averages)
+    high_pdi = pdi > 55     # High power distance
+    low_pdi = pdi <= 55     # Low power distance
+    low_idv = idv < 40      # Collectivist
+    high_idv = idv > 60     # Individualist
+    low_mas = mas < 45      # Feminine
+    high_mas = mas >= 45    # Masculine
+    high_ivr = ivr > 55     # Indulgent
+    low_ivr = ivr < 45      # Restrained
     
-    # Western Individualistic Patterns
-    if idv > 80 and pdi < 45:
-        if uai < 50 and mas > 60:
-            name = "Anglo Individualistic"
-            desc = "Very high individualism, competitive, low uncertainty avoidance"
-        elif uai > 65:
-            name = "Germanic Structured"
-            desc = "High individualism but rule-oriented and structured"
-        else:
-            name = "Western Democratic"
-            desc = "High individualism with democratic values"
+    # Simple, intuitive names based on cultural combinations
+    if low_idv and high_ivr:  # Cluster 0, 3 pattern
+        if migration_ratio > 15:  # Higher migration (0)
+            name = "Family-First Countries"
+            desc = "Places where family and community come first, but people enjoy life's pleasures"
+        else:  # Lower migration (3)
+            name = "Social Living Countries"
+            desc = "Traditional societies where everyone knows each other and celebrates together"
     
-    # Nordic Pattern
-    elif idv > 65 and pdi < 35 and uai < 50 and ivr > 65:
-        name = "Nordic Egalitarian"
-        desc = "High individualism, very low hierarchy, flexible, indulgent"
+    elif high_idv and high_mas and migration_ratio < 50:  # Cluster 1 pattern (lower migration)
+        name = "Competitive Nations"
+        desc = "Independent countries focused on success, achievement and getting ahead"
     
-    # East Asian Pattern
-    elif idv < 30 and lto > 70:
-        if pdi > 70:
-            name = "East Asian Hierarchical"
-            desc = "Collectivistic, hierarchical, long-term oriented"
-        else:
-            name = "East Asian Balanced"
-            desc = "Collectivistic, moderate hierarchy, long-term focused"
+    elif high_idv and high_mas and migration_ratio >= 50:  # Cluster 6 pattern (higher migration)
+        name = "Business-Minded Countries"
+        desc = "Global business hubs where people pursue entrepreneurship and success"
     
-    # Traditional/Conservative Patterns
-    elif idv < 35 and pdi > 65:
-        if uai > 70:
-            name = "Traditional Conservative"
-            desc = "Collectivistic, hierarchical, high uncertainty avoidance"
-        elif mas > 60:
-            name = "Patriarchal Traditional"
-            desc = "Collectivistic, hierarchical, masculine values"
-        else:
-            name = "Community Hierarchical"
-            desc = "Collectivistic, hierarchical but adaptable"
+    elif high_pdi and low_idv and low_ivr:  # Cluster 2, 4, 7 pattern
+        if migration_ratio > 70:  # Very high migration (4)
+            name = "Structured Societies"
+            desc = "Well-organized countries with clear rules and strong leadership"
+        elif migration_ratio > 10:  # Moderate migration (2)
+            name = "Respectful Communities"
+            desc = "Places where people respect authority and work together as groups"
+        else:  # Low migration (7)
+            name = "Traditional Mindset"
+            desc = "Countries with deep traditions and established ways of doing things"
     
-    # Latin Patterns
-    elif idv < 45 and pdi > 55 and uai > 75:
-        name = "Latin Structured"
-        desc = "Collectivistic, hierarchical, very high uncertainty avoidance"
+    elif low_pdi and high_idv and low_mas:  # Cluster 5 pattern
+        name = "Quality-of-Life Nations"
+        desc = "Equal societies where people value work-life balance and helping others"
     
-    # African/Communal Pattern
-    elif idv < 25 and pdi > 60 and uai < 60:
-        name = "Communal Flexible"
-        desc = "Very collectivistic, hierarchical but adaptable"
+    elif low_pdi and high_idv:  # Fallback for remaining high individualism
+        name = "Progressive Countries"
+        desc = "Fair countries where people pursue personal goals while caring for others"
     
-    # Post-Soviet Pattern
-    elif idv < 50 and pdi > 80 and uai > 85:
-        name = "Post-Authoritarian"
-        desc = "Collectivistic legacy, very high hierarchy, extremely structured"
-    
-    # Balanced/Moderate Patterns
-    elif 35 <= idv <= 65 and 35 <= pdi <= 65:
-        if lto > 65:
-            name = "Balanced Long-term"
-            desc = "Moderate individualism and hierarchy, long-term oriented"
-        elif uai > 70:
-            name = "Balanced Structured"
-            desc = "Moderate values but high need for structure"
-        else:
-            name = "Balanced Democratic"
-            desc = "Moderate values across cultural dimensions"
-    
-    # European Social Democratic
-    elif idv > 55 and pdi < 50 and uai > 60 and ivr < 60:
-        name = "European Social Democratic"
-        desc = "Individualistic but structured, moderate hierarchy, restrained"
-    
-    # Default for unusual combinations
+    # Fallbacks for any unmatched patterns
+    elif high_idv:
+        name = "Independent Nations"
+        desc = "Countries where people value personal freedom and self-reliance"
+    elif low_idv:
+        name = "Team Players"
+        desc = "Countries where people work together and support each other"
     else:
-        # Determine dominant characteristics
-        characteristics = []
-        if idv > 60:
-            characteristics.append("individualistic")
-        elif idv < 30:
-            characteristics.append("collectivistic")
-        
-        if pdi > 60:
-            characteristics.append("hierarchical")
-        elif pdi < 40:
-            characteristics.append("egalitarian")
-            
-        if uai > 70:
-            characteristics.append("structured")
-        elif uai < 40:
-            characteristics.append("flexible")
-            
-        if lto > 70:
-            characteristics.append("long-term focused")
-        elif lto < 30:
-            characteristics.append("tradition-focused")
-        
-        name = "Mixed Cultural Pattern"
-        desc = f"Unique combination: {', '.join(characteristics) if characteristics else 'balanced across dimensions'}"
+        name = "Mixed Cultures"
+        desc = "Countries with balanced cultural characteristics"
     
     return {'name': name, 'description': desc}
 

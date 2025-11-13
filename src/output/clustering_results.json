@@ -1,9 +1,9 @@
 {
   "clusters": {
     "0": {
-      "name": "Mixed Cultural Pattern",
-      "description": "Unique combination: collectivistic, tradition-focused",
-      "color": "#E74C3C",
+      "name": "Family-First Countries",
+      "description": "Places where family and community come first, but people enjoy life's pleasures",
+      "color": "#000000",
       "countries": [
         "Kenya",
         "Libya",
@@ -28,9 +28,9 @@
       "immigration_ratio_per_1000": 22.080240113255755
     },
     "1": {
-      "name": "Balanced Structured",
-      "description": "Moderate values but high need for structure",
-      "color": "#3498DB",
+      "name": "Competitive Nations",
+      "description": "Independent countries focused on success, achievement and getting ahead",
+      "color": "#009E73",
       "countries": [
         "Taiwan",
         "Japan",
@@ -60,9 +60,9 @@
       "immigration_ratio_per_1000": 36.90913162467807
     },
     "2": {
-      "name": "Community Hierarchical",
-      "description": "Collectivistic, hierarchical but adaptable",
-      "color": "#2ECC71",
+      "name": "Respectful Communities",
+      "description": "Places where people respect authority and work together as groups",
+      "color": "#0072B2",
       "countries": [
         "Zambia",
         "Namibia",
@@ -95,9 +95,9 @@
       "immigration_ratio_per_1000": 13.980833178193834
     },
     "3": {
-      "name": "Traditional Conservative",
-      "description": "Collectivistic, hierarchical, high uncertainty avoidance",
-      "color": "#9B59B6",
+      "name": "Social Living Countries",
+      "description": "Traditional societies where everyone knows each other and celebrates together",
+      "color": "#56B4E9",
       "countries": [
         "Ethiopia",
         "Malawi",
@@ -135,9 +135,9 @@
       "immigration_ratio_per_1000": 7.106913020883713
     },
     "4": {
-      "name": "Traditional Conservative",
-      "description": "Collectivistic, hierarchical, high uncertainty avoidance",
-      "color": "#F39C12",
+      "name": "Structured Societies",
+      "description": "Well-organized countries with clear rules and strong leadership",
+      "color": "#C26A77",
       "countries": [
         "Kazakhstan",
         "Armenia",
@@ -171,9 +171,9 @@
       "immigration_ratio_per_1000": 85.74361755557007
     },
     "5": {
-      "name": "Mixed Cultural Pattern",
-      "description": "Unique combination: individualistic, egalitarian",
-      "color": "#1ABC9C",
+      "name": "Quality-of-Life Nations",
+      "description": "Equal societies where people value work-life balance and helping others",
+      "color": "#E69F00",
       "countries": [
         "Denmark",
         "Estonia",
@@ -199,9 +199,9 @@
       "immigration_ratio_per_1000": 58.16227500153953
     },
     "6": {
-      "name": "Mixed Cultural Pattern",
-      "description": "Unique combination: individualistic, egalitarian",
-      "color": "#E67E22",
+      "name": "Business-Minded Countries",
+      "description": "Global business hubs where people pursue entrepreneurship and success",
+      "color": "#D55E00",
       "countries": [
         "Hong Kong",
         "Singapore",
@@ -229,9 +229,9 @@
       "immigration_ratio_per_1000": 126.71359271701455
     },
     "7": {
-      "name": "Community Hierarchical",
-      "description": "Collectivistic, hierarchical but adaptable",
-      "color": "#34495E",
+      "name": "Traditional Mindset",
+      "description": "Countries with deep traditions and established ways of doing things",
+      "color": "#CC79A7",
       "countries": [
         "Tanzania",
         "Algeria",
