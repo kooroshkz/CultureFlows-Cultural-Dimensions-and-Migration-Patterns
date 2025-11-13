@@ -323,13 +323,11 @@ body {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
     margin-top: var(--space-lg);
-    max-height: 600px;
     overflow: hidden;
 }
 
 .insights-container {
     padding: var(--space-xl);
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -358,7 +356,6 @@ body {
 
 .insights-content {
     flex: 1;
-    overflow-y: auto;
 }
 
 /* Cluster Map Section */
@@ -548,8 +545,7 @@ body {
 }
 
 .viz-legend {
-    max-height: 120px;
-    overflow-y: auto;
+    max-height: none;
 }
 
 .legend-items {
@@ -627,8 +623,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
 }
 
 .cluster-card {
@@ -1021,7 +1015,6 @@ body {
     
     .insights-panel {
         margin-top: var(--space-md);
-        max-height: 400px;
     }
 }
 
@@ -1393,6 +1386,130 @@ body {
     background: #f8fafc;
 }
 
+/* Expanded Cluster Styles */
+.cluster-item.expanded {
+    grid-column: 1 / -1;
+    min-height: 500px;
+    cursor: default;
+    background: #f8f9fa;
+    border: 2px solid #007bff;
+    overflow: visible;
+}
+
+.cluster-item.expanded .cluster-header {
+    display: none;
+}
+
+.cluster-item.expanded .cluster-summary-info {
+    display: none;
+}
+
+.cluster-item.expanded .cluster-examples {
+    display: none;
+}
+
+.cluster-item.expanded .expanded-view {
+    display: block;
+    padding: 1.5rem;
+}
+
+.expanded-view {
+    display: none;
+    position: relative;
+}
+
+.expanded-view .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.expanded-view .close-btn:hover {
+    background: #0056b3;
+}
+
+.expanded-view .cluster-details {
+    margin-top: 10px;
+}
+
+.expanded-view .dimension-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.expanded-view .stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.expanded-view .stat-card h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.expanded-view .stat-card .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.expanded-view .countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.expanded-view .country-tag {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 12px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.expanded-view h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.expanded-view h4 {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Hide other cluster items when one is expanded */
+.clusters-grid:has(.cluster-item.expanded) .cluster-item:not(.expanded) {
+    display: none;
+}
+
 
 
 /* Cluster Details Panel */
@@ -1463,8 +1580,7 @@ body {
 }
 
 .countries-list {
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: none;
 }
 
 .country-chip {
@@ -1473,6 +1589,113 @@ body {
 }
 
 .country-chip:hover {
+    transform: scale(1.05);
+}
+
+/* Ensure insights content can contain absolute positioned elements */
+.insights-content {
+    position: relative;
+}
+
+/* Fullscreen cluster knowledge card */
+.cluster-detail-fullscreen {
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    background: #f8fafc;
+    z-index: 10;
+    border-radius: 20px;
+}
+
+.cluster-knowledge-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.knowledge-header .close-knowledge-card:hover {
+    background: rgba(100, 116, 139, 0.15) !important;
+    transform: scale(1.05);
+}
+
+/* Expanded cluster view styles */
+.clusters-grid.expanded-view {
+    display: block;
+}
+
+.cluster-item.expanded {
+    max-width: none;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.expanded-cluster-content {
+    width: 100%;
+}
+
+.cluster-stats-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.dimension-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dimension-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dimension-bar {
+    position: relative;
+    overflow: hidden;
+}
+
+.dimension-fill {
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.countries-grid .country-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.close-expanded {
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+}
+
+.close-expanded:hover {
+    background: rgba(100, 116, 139, 0.15) !important;
     transform: scale(1.05);
 }
 
@@ -1490,6 +1713,19 @@ body {
     
     .cluster-stats-row {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .dimensions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cluster-item.expanded {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .countries-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
     }
 }

@@ -456,7 +456,127 @@ class CountryInsights {
     }
 
     setupEventListeners() {
-        // Add click listeners to cluster items
+        // Use the new cluster event listeners method
+        this.setupClusterEventListeners();
+    }
+
+    showClusterDetails(clusterId) {
+        const cluster = this.clusterData.clusters[clusterId];
+        if (!cluster) return;
+
+        // Generate extended description based on cluster type
+        const extendedDescription = this.getExtendedDescription(cluster.name);
+
+        // Hide the entire insights analysis section
+        const insightsAnalysis = this.container.querySelector('.insights-analysis');
+        if (insightsAnalysis) insightsAnalysis.style.display = 'none';
+
+        // Create or show the detailed view container that takes the full width
+        let detailContainer = this.container.querySelector('.cluster-detail-fullscreen');
+        if (!detailContainer) {
+            detailContainer = document.createElement('div');
+            detailContainer.className = 'cluster-detail-fullscreen';
+            this.container.appendChild(detailContainer);
+        }
+
+        detailContainer.style.display = 'block';
+        detailContainer.innerHTML = `
+            <div class="cluster-knowledge-card">
+                <div class="knowledge-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid ${cluster.color};">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="cluster-color-dot" style="background: ${cluster.color}; width: 16px; height: 16px; border-radius: 50%;"></div>
+                        <h2 style="color: ${cluster.color}; margin: 0; font-size: 1.5rem; font-weight: bold;">${cluster.name}</h2>
+                    </div>
+                    <button class="close-knowledge-card" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b; padding: 0.35rem; border-radius: 4px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">&times;</button>
+                </div>
+                
+                <div class="knowledge-content" style="display: grid; gap: 1.25rem;">
+                    <div class="cluster-description" style="padding: 1.25rem; background: ${cluster.color}08; border-radius: 12px; border-left: 4px solid ${cluster.color};">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1.1rem;">About ${cluster.name}</h3>
+                        <p style="margin: 0 0 1rem 0; color: #555; font-size: 1rem; line-height: 1.6; font-weight: 500;">${cluster.description}</p>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem; line-height: 1.5;">${extendedDescription}</p>
+                    </div>
+                    
+                    <div class="cluster-stats-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="stat-value" style="font-size: 1.2rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.2rem;">${cluster.size}</div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Countries</div>
+                        </div>
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="stat-value" style="font-size: 1.2rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.2rem;">${cluster.immigration_ratio_per_1000?.toFixed(1) || 'N/A'}</div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Immigration<br><span style="font-size: 0.6rem; color: #888;">per 1000</span></div>
+                        </div>
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="migration-badge" style="background: ${cluster.color}; color: white; padding: 0.35rem 0.65rem; border-radius: 5px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 0.2rem;">
+                                ${cluster.migration_level}
+                            </div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Migration</div>
+                        </div>
+                    </div>
+
+                    <div class="cultural-dimensions" style="margin-top: 0.5rem;">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1rem; text-align: center;">Cultural Characteristics</h3>
+                        <div class="dimensions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem;">
+                            ${this.renderCulturalDimensions(cluster.cultural_profile, cluster.color)}
+                        </div>
+                    </div>
+
+                    <div class="cluster-countries" style="margin-top: 0.75rem;">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1rem; text-align: center;">All Countries in ${cluster.name}</h3>
+                        <div class="countries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem;">
+                            ${cluster.countries.map(country => `
+                                <div class="country-card" style="background: ${cluster.color}12; color: ${cluster.color}; border: 1.5px solid ${cluster.color}30; padding: 0.6rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer;">
+                                    ${country}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add close event listener
+        const closeBtn = detailContainer.querySelector('.close-knowledge-card');
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.hideClusterDetails();
+        });
+
+        // Add hover effects to country cards
+        const countryCards = detailContainer.querySelectorAll('.country-card');
+        countryCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-3px) scale(1.02)';
+                card.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // Highlight this cluster on the map
+        if (window.worldMapComponent) {
+            window.worldMapComponent.highlightCluster(cluster.countries);
+        }
+    }
+
+    hideClusterDetails() {
+        // Show the insights analysis section again
+        const insightsAnalysis = this.container.querySelector('.insights-analysis');
+        const detailContainer = this.container.querySelector('.cluster-detail-fullscreen');
+        
+        if (insightsAnalysis) insightsAnalysis.style.display = 'block';
+        if (detailContainer) detailContainer.style.display = 'none';
+
+        // Reset map highlighting
+        if (window.worldMapComponent) {
+            window.worldMapComponent.resetHighlight();
+        }
+    }
+
+    setupClusterEventListeners() {
         const clusterItems = this.container.querySelectorAll('.cluster-item');
         clusterItems.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -466,75 +586,119 @@ class CountryInsights {
             
             // Add hover effects
             item.addEventListener('mouseenter', () => {
-                item.style.transform = 'translateY(-2px)';
-                item.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                if (!item.classList.contains('expanded')) {
+                    item.style.transform = 'translateY(-2px)';
+                    item.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                }
             });
             
             item.addEventListener('mouseleave', () => {
-                item.style.transform = 'translateY(0)';
-                item.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                if (!item.classList.contains('expanded')) {
+                    item.style.transform = 'translateY(0)';
+                    item.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                }
             });
         });
-
-        // Close details panel
-        const closeBtn = this.container.querySelector('#close-details');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                this.hideClusterDetails();
-            });
-        }
     }
 
-    showClusterDetails(clusterId) {
-        const cluster = this.clusterData.clusters[clusterId];
-        if (!cluster) return;
-
-        const detailsPanel = this.container.querySelector('#cluster-details');
-        const detailsContent = this.container.querySelector('#cluster-details-content');
-
-        detailsContent.innerHTML = `
-            <div class="cluster-detail-card">
-                <div class="cluster-detail-header" style="border-left: 4px solid ${cluster.color}; background: ${cluster.color}10; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="color: ${cluster.color}; margin: 0 0 0.5rem 0;">${cluster.name}</h5>
-                    <p style="margin: 0; color: #666; font-size: 0.9rem;">${cluster.description}</p>
-                </div>
-                
-                <div class="cluster-stats-row" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                    <div class="stat-box" style="text-align: center; flex: 1;">
-                        <div class="stat-value" style="font-size: 1.5rem; font-weight: bold; color: ${cluster.color};">${cluster.size}</div>
-                        <div class="stat-label" style="font-size: 0.8rem; color: #666;">Countries</div>
-                    </div>
-                    <div class="stat-box" style="text-align: center; flex: 1;">
-                        <div class="stat-value" style="font-size: 1.5rem; font-weight: bold; color: ${cluster.color};">${cluster.immigration_ratio_per_1000?.toFixed(1) || 'N/A'}</div>
-                        <div class="stat-label" style="font-size: 0.8rem; color: #666;">Per 1000 People</div>
-                    </div>
-                    <div class="stat-box" style="text-align: center; flex: 1;">
-                        <div class="migration-badge" style="background: ${cluster.color}; color: white; padding: 0.5rem; border-radius: 4px; font-size: 0.9rem; font-weight: bold;">
-                            ${cluster.migration_level}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cluster-countries" style="margin-top: 1.5rem;">
-                    <h6 style="margin: 0 0 1rem 0; color: #333;">Countries in this Cluster (${cluster.size})</h6>
-                    <div class="countries-list" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                        ${cluster.countries.map(country => `
-                            <span class="country-chip" style="background: ${cluster.color}15; color: ${cluster.color}; border: 1px solid ${cluster.color}30; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">
-                                ${country}
-                            </span>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        `;
-
-        detailsPanel.style.display = 'block';
-        detailsPanel.scrollIntoView({ behavior: 'smooth' });
+    getExtendedDescription(clusterName) {
+        const descriptions = {
+            "Family-First Countries": "These countries prioritize strong family bonds and community ties. People enjoy celebrating life while maintaining close relationships. Think of places where extended families gather often, festivals are community-wide events, and personal happiness is valued alongside collective harmony.",
+            
+            "Competitive Nations": "Countries where individual achievement and success drive society forward. People work hard to get ahead, value personal accomplishments, and believe in earning their place through effort. Education, career advancement, and measurable achievements are highly respected.",
+            
+            "Respectful Communities": "Societies built on respect for authority and group cooperation. People work together toward common goals, follow established hierarchies, and value group harmony over individual desires. Decision-making often involves consultation and consensus-building.",
+            
+            "Social Living Countries": "Places where community life is central to daily existence. Everyone knows their neighbors, local traditions are actively preserved, and social gatherings are frequent and meaningful. People prefer face-to-face relationships and collective celebrations.",
+            
+            "Structured Societies": "Well-organized countries with clear rules, efficient systems, and strong institutional leadership. People appreciate predictability, proper procedures, and systematic approaches to solving problems. Government and social structures provide stability and order.",
+            
+            "Quality-of-Life Nations": "Countries that prioritize work-life balance, environmental quality, and citizen wellbeing. People value time with family, personal fulfillment, and creating supportive communities. Success is measured not just by wealth, but by happiness and life satisfaction.",
+            
+            "Business-Minded Countries": "Global hubs where entrepreneurship, innovation, and commercial success thrive. These places attract international talent, foster startup cultures, and encourage risk-taking in business. Economic opportunity and financial achievement are central to the culture.",
+            
+            "Traditional Mindset": "Countries deeply rooted in historical customs, established ways of life, and time-tested approaches. People value continuity, respect for elders, and preserving cultural heritage. Change happens gradually, with careful consideration of traditional values."
+        };
+        
+        return descriptions[clusterName] || "This cluster represents a unique combination of cultural characteristics that shape how people in these countries approach life, work, and relationships.";
     }
 
-    hideClusterDetails() {
-        const detailsPanel = this.container.querySelector('#cluster-details');
-        detailsPanel.style.display = 'none';
+    renderCulturalDimensions(profile, color) {
+        const dimensions = [
+            {
+                name: "Authority Respect",
+                key: "power_distance",
+                value: profile.power_distance,
+                description: "How much people accept hierarchy and unequal power distribution",
+                lowLabel: "Everyone Equal",
+                highLabel: "Respect Authority"
+            },
+            {
+                name: "Individual Focus",
+                key: "individualism",
+                value: profile.individualism,
+                description: "Whether people focus on personal goals or group harmony",
+                lowLabel: "Group First",
+                highLabel: "Self-Reliant"
+            },
+            {
+                name: "Achievement Drive",
+                key: "masculinity",
+                value: profile.masculinity,
+                description: "How much society values competition and material success",
+                lowLabel: "Care & Quality",
+                highLabel: "Compete & Win"
+            },
+            {
+                name: "Stability Preference",
+                key: "uncertainty_avoidance",
+                value: profile.uncertainty_avoidance,
+                description: "How comfortable people are with uncertainty and change",
+                lowLabel: "Embrace Change",
+                highLabel: "Prefer Stability"
+            },
+            {
+                name: "Time Perspective",
+                key: "long_term_orientation",
+                value: profile.long_term_orientation,
+                description: "Whether society focuses on future planning or present traditions",
+                lowLabel: "Respect Tradition",
+                highLabel: "Plan Ahead"
+            },
+            {
+                name: "Life Enjoyment",
+                key: "indulgence",
+                value: profile.indulgence,
+                description: "How much society allows free expression of emotions and desires",
+                lowLabel: "Self-Control",
+                highLabel: "Enjoy Life"
+            }
+        ];
+
+        return dimensions.map(dim => {
+            const percentage = Math.round(dim.value);
+            const isHigh = percentage > 50;
+            
+            return `
+                <div class="dimension-card" style="background: white; border-radius: 6px; padding: 0.65rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 2px solid ${color};">
+                    <div class="dimension-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <h5 style="margin: 0; color: #333; font-size: 0.8rem; font-weight: 600;">${dim.name}</h5>
+                        <span class="dimension-value" style="font-size: 1rem; font-weight: bold; color: ${color};">${percentage}</span>
+                    </div>
+                    
+                    <div class="dimension-bar" style="width: 100%; height: 4px; background: #e5e7eb; border-radius: 2px; margin-bottom: 0.4rem; overflow: hidden;">
+                        <div class="dimension-fill" style="width: ${percentage}%; height: 100%; background: ${color}; transition: width 0.3s ease;"></div>
+                    </div>
+                    
+                    <div class="dimension-labels" style="display: flex; justify-content: space-between; margin-bottom: 0.35rem; font-size: 0.65rem; color: #666;">
+                        <span style="font-weight: ${!isHigh ? 'bold' : 'normal'}; color: ${!isHigh ? color : '#666'};">${dim.lowLabel}</span>
+                        <span style="font-weight: ${isHigh ? 'bold' : 'normal'}; color: ${isHigh ? color : '#666'};">${dim.highLabel}</span>
+                    </div>
+                    
+                    <p style="margin: 0; font-size: 0.68rem; color: #666; line-height: 1.2;">${dim.description}</p>
+                </div>
+            `;
+        }).join('');
     }
 
 

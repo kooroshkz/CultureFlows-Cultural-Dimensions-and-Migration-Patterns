@@ -482,50 +482,50 @@ class CountryInsights {
         detailContainer.style.display = 'block';
         detailContainer.innerHTML = `
             <div class="cluster-knowledge-card">
-                <div class="knowledge-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid ${cluster.color};">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div class="cluster-color-dot" style="background: ${cluster.color}; width: 24px; height: 24px; border-radius: 50%;"></div>
-                        <h2 style="color: ${cluster.color}; margin: 0; font-size: 2rem; font-weight: bold;">${cluster.name}</h2>
+                <div class="knowledge-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid ${cluster.color};">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="cluster-color-dot" style="background: ${cluster.color}; width: 16px; height: 16px; border-radius: 50%;"></div>
+                        <h2 style="color: ${cluster.color}; margin: 0; font-size: 1.5rem; font-weight: bold;">${cluster.name}</h2>
                     </div>
-                    <button class="close-knowledge-card" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #64748b; padding: 0.5rem; border-radius: 6px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">&times;</button>
+                    <button class="close-knowledge-card" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b; padding: 0.35rem; border-radius: 4px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">&times;</button>
                 </div>
                 
-                <div class="knowledge-content" style="display: grid; gap: 2rem;">
-                    <div class="cluster-description" style="padding: 2rem; background: ${cluster.color}08; border-radius: 16px; border-left: 6px solid ${cluster.color};">
-                        <h3 style="margin: 0 0 1rem 0; color: #333; font-size: 1.3rem;">About ${cluster.name}</h3>
-                        <p style="margin: 0 0 1.5rem 0; color: #555; font-size: 1.2rem; line-height: 1.7; font-weight: 500;">${cluster.description}</p>
-                        <p style="margin: 0; color: #666; font-size: 1rem; line-height: 1.6;">${extendedDescription}</p>
+                <div class="knowledge-content" style="display: grid; gap: 1.25rem;">
+                    <div class="cluster-description" style="padding: 1.25rem; background: ${cluster.color}08; border-radius: 12px; border-left: 4px solid ${cluster.color};">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1.1rem;">About ${cluster.name}</h3>
+                        <p style="margin: 0 0 1rem 0; color: #555; font-size: 1rem; line-height: 1.6; font-weight: 500;">${cluster.description}</p>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem; line-height: 1.5;">${extendedDescription}</p>
                     </div>
                     
-                    <div class="cluster-stats-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                        <div class="stat-box" style="text-align: center; padding: 2rem; background: white; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-top: 4px solid ${cluster.color};">
-                            <div class="stat-value" style="font-size: 3rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.5rem;">${cluster.size}</div>
-                            <div class="stat-label" style="font-size: 1rem; color: #666; font-weight: 600;">Countries in Cluster</div>
+                    <div class="cluster-stats-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="stat-value" style="font-size: 1.2rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.2rem;">${cluster.size}</div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Countries</div>
                         </div>
-                        <div class="stat-box" style="text-align: center; padding: 2rem; background: white; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-top: 4px solid ${cluster.color};">
-                            <div class="stat-value" style="font-size: 3rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.5rem;">${cluster.immigration_ratio_per_1000?.toFixed(1) || 'N/A'}</div>
-                            <div class="stat-label" style="font-size: 1rem; color: #666; font-weight: 600;">Immigration Rate<br><span style="font-size: 0.9rem; color: #888;">per 1000 people</span></div>
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="stat-value" style="font-size: 1.2rem; font-weight: bold; color: ${cluster.color}; margin-bottom: 0.2rem;">${cluster.immigration_ratio_per_1000?.toFixed(1) || 'N/A'}</div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Immigration<br><span style="font-size: 0.6rem; color: #888;">per 1000</span></div>
                         </div>
-                        <div class="stat-box" style="text-align: center; padding: 2rem; background: white; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-top: 4px solid ${cluster.color};">
-                            <div class="migration-badge" style="background: ${cluster.color}; color: white; padding: 1rem 2rem; border-radius: 12px; font-size: 1.3rem; font-weight: bold; display: inline-block; margin-bottom: 0.5rem;">
+                        <div class="stat-box" style="text-align: center; padding: 0.5rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 2px solid ${cluster.color};">
+                            <div class="migration-badge" style="background: ${cluster.color}; color: white; padding: 0.35rem 0.65rem; border-radius: 5px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 0.2rem;">
                                 ${cluster.migration_level}
                             </div>
-                            <div class="stat-label" style="font-size: 1rem; color: #666; font-weight: 600;">Migration Level</div>
+                            <div class="stat-label" style="font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Migration</div>
                         </div>
                     </div>
 
-                    <div class="cultural-dimensions" style="margin-top: 1rem;">
-                        <h3 style="margin: 0 0 2rem 0; color: #333; font-size: 1.5rem; text-align: center;">Cultural Characteristics</h3>
-                        <div class="dimensions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                    <div class="cultural-dimensions" style="margin-top: 0.5rem;">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1rem; text-align: center;">Cultural Characteristics</h3>
+                        <div class="dimensions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem;">
                             ${this.renderCulturalDimensions(cluster.cultural_profile, cluster.color)}
                         </div>
                     </div>
 
-                    <div class="cluster-countries" style="margin-top: 2rem;">
-                        <h3 style="margin: 0 0 2rem 0; color: #333; font-size: 1.5rem; text-align: center;">All Countries in ${cluster.name}</h3>
-                        <div class="countries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="cluster-countries" style="margin-top: 0.75rem;">
+                        <h3 style="margin: 0 0 0.75rem 0; color: #333; font-size: 1rem; text-align: center;">All Countries in ${cluster.name}</h3>
+                        <div class="countries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem;">
                             ${cluster.countries.map(country => `
-                                <div class="country-card" style="background: ${cluster.color}12; color: ${cluster.color}; border: 2px solid ${cluster.color}30; padding: 1.5rem; border-radius: 12px; font-size: 1rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer;">
+                                <div class="country-card" style="background: ${cluster.color}12; color: ${cluster.color}; border: 1.5px solid ${cluster.color}30; padding: 0.6rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-align: center; transition: all 0.3s ease; cursor: pointer;">
                                     ${country}
                                 </div>
                             `).join('')}
@@ -555,6 +555,11 @@ class CountryInsights {
                 card.style.boxShadow = 'none';
             });
         });
+
+        // Highlight this cluster on the map
+        if (window.worldMapComponent) {
+            window.worldMapComponent.highlightCluster(cluster.countries);
+        }
     }
 
     hideClusterDetails() {
@@ -564,6 +569,11 @@ class CountryInsights {
         
         if (insightsAnalysis) insightsAnalysis.style.display = 'block';
         if (detailContainer) detailContainer.style.display = 'none';
+
+        // Reset map highlighting
+        if (window.worldMapComponent) {
+            window.worldMapComponent.resetHighlight();
+        }
     }
 
     setupClusterEventListeners() {
@@ -670,22 +680,22 @@ class CountryInsights {
             const isHigh = percentage > 50;
             
             return `
-                <div class="dimension-card" style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid ${color};">
-                    <div class="dimension-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h5 style="margin: 0; color: #333; font-size: 1rem;">${dim.name}</h5>
-                        <span class="dimension-value" style="font-size: 1.5rem; font-weight: bold; color: ${color};">${percentage}</span>
+                <div class="dimension-card" style="background: white; border-radius: 6px; padding: 0.65rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 2px solid ${color};">
+                    <div class="dimension-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <h5 style="margin: 0; color: #333; font-size: 0.8rem; font-weight: 600;">${dim.name}</h5>
+                        <span class="dimension-value" style="font-size: 1rem; font-weight: bold; color: ${color};">${percentage}</span>
                     </div>
                     
-                    <div class="dimension-bar" style="width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; margin-bottom: 1rem; overflow: hidden;">
+                    <div class="dimension-bar" style="width: 100%; height: 4px; background: #e5e7eb; border-radius: 2px; margin-bottom: 0.4rem; overflow: hidden;">
                         <div class="dimension-fill" style="width: ${percentage}%; height: 100%; background: ${color}; transition: width 0.3s ease;"></div>
                     </div>
                     
-                    <div class="dimension-labels" style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.8rem; color: #666;">
+                    <div class="dimension-labels" style="display: flex; justify-content: space-between; margin-bottom: 0.35rem; font-size: 0.65rem; color: #666;">
                         <span style="font-weight: ${!isHigh ? 'bold' : 'normal'}; color: ${!isHigh ? color : '#666'};">${dim.lowLabel}</span>
                         <span style="font-weight: ${isHigh ? 'bold' : 'normal'}; color: ${isHigh ? color : '#666'};">${dim.highLabel}</span>
                     </div>
                     
-                    <p style="margin: 0; font-size: 0.85rem; color: #666; line-height: 1.3;">${dim.description}</p>
+                    <p style="margin: 0; font-size: 0.68rem; color: #666; line-height: 1.2;">${dim.description}</p>
                 </div>
             `;
         }).join('');

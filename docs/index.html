@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CultureFlows - Cultural Dimensions & Migration Patterns</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/hofstede-explainer.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
@@ -144,6 +145,15 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Hofstede Explainer Panel -->
+            <section class="insights-panel">
+                <div class="insights-container">
+                    <div id="hofstede-explainer">
+                        <!-- Hofstede explainer will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -170,6 +180,7 @@
     <script src="components/migration-chart.js"></script>
     <script src="components/data-table.js"></script>
     <script src="components/country-insights.js"></script>
+    <script src="components/hofstede-explainer.js"></script>
     
     <!-- Main Application -->
     <script src="assets/app.js"></script>

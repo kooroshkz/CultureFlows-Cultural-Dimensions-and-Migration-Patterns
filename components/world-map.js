@@ -283,6 +283,33 @@ class WorldMapComponent {
             });
     }
 
+    highlightCluster(clusterCountries) {
+        if (!clusterCountries || clusterCountries.length === 0) {
+            // Reset all countries to normal
+            this.countriesGroup
+                .selectAll('.country')
+                .style('opacity', 1)
+                .attr('stroke-width', 0.5);
+            return;
+        }
+
+        // Make non-cluster countries more transparent
+        this.countriesGroup
+            .selectAll('.country')
+            .style('opacity', (d) => {
+                const countryName = this.getCountryName(d);
+                return clusterCountries.includes(countryName) ? 1 : 0.2;
+            })
+            .attr('stroke-width', (d) => {
+                const countryName = this.getCountryName(d);
+                return clusterCountries.includes(countryName) ? 1.5 : 0.5;
+            });
+    }
+
+    resetHighlight() {
+        this.highlightCluster(null);
+    }
+
     // Public methods for external control
     zoomToCountry(countryName) {
         const country = this.countriesGroup
