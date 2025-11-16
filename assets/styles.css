@@ -1,4 +1,18 @@
 /* CSS Reset and Variables */
+/* Global emoji rendering optimization */
+* {
+    /* Ensure emoji fonts are prioritized for Unicode emoji ranges */
+    font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* Specific emoji character ranges for flag emojis */
+[data-emoji], .emoji, [title*="🇦"], [title*="🇧"], [title*="🇨"], [title*="🇩"], [title*="🇪"], [title*="🇫"], [title*="🇬"], [title*="🇭"], [title*="🇮"], [title*="🇯"], [title*="🇰"], [title*="🇱"], [title*="🇲"], [title*="🇳"], [title*="🇴"], [title*="🇵"], [title*="🇶"], [title*="🇷"], [title*="🇸"], [title*="🇹"], [title*="🇺"], [title*="🇻"], [title*="🇼"], [title*="🇽"], [title*="🇾"], [title*="🇿"] {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twitter Color Emoji", system-ui, sans-serif !important;
+    font-variant-emoji: emoji;
+    text-rendering: optimizeLegibility;
+}
+
+/* CSS Variables */
 :root {
     --primary-color: #2563eb;
     --primary-light: #3b82f6;
@@ -859,6 +873,55 @@ body {
 
 .country-flag {
     font-size: 2rem;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twitter Color Emoji", "JoyPixels", "Emoji One", "Android Emoji", "EmojiSymbols", system-ui, sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    -webkit-font-feature-settings: "liga" off, "kern" off;
+    font-feature-settings: "liga" off, "kern" off;
+    -webkit-text-size-adjust: none;
+    text-rendering: optimizeLegibility;
+    font-variant-emoji: emoji;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Force hardware acceleration for better rendering */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* Ensure proper sizing */
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    /* Prevent text selection issues */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/* Enhanced emoji rendering for better flag display */
+.emoji-flag, .country-flag {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twitter Color Emoji", "JoyPixels", "Emoji One", "Android Emoji", "EmojiSymbols", system-ui, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-variant-emoji: emoji;
+    /* Additional cross-browser support */
+    font-synthesis: none;
+    -webkit-font-variant-ligatures: none;
+    font-variant-ligatures: none;
+}
+
+/* Specific fixes for problematic browsers */
+@supports not (font-variant-emoji: emoji) {
+    .country-flag, .emoji-flag {
+        font-family: "Segoe UI Emoji", "Noto Color Emoji", "Apple Color Emoji", sans-serif !important;
+    }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+    .country-flag, .emoji-flag {
+        font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
 }
 
 .country-name {

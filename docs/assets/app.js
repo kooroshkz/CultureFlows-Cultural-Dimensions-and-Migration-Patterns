@@ -418,6 +418,7 @@ class CultureFlowsApp {
 
     getCountryFlag(countryName) {
         // Comprehensive flag mapping for all countries in dataset
+        // Using Unicode flag emojis with fallback support
         const flagMap = {
             // Africa
             'Algeria': '🇩🇿',
