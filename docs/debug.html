@@ -71,7 +71,7 @@
             // Test 4: Test external world data
             try {
                 addStatus('Testing world map data...');
-                const worldResponse = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+                const worldResponse = await fetch('data/maps/countries-110m.json');
                 addResult('World Data Response', worldResponse.ok);
             } catch (error) {
                 addResult('World Data Loading', false);
@@ -85,7 +85,7 @@
         runTests();
     </script>
     
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://unpkg.com/topojson@3"></script>
+    <script src="vendor/d3.v7.min.js"></script>
+    <script src="vendor/topojson-client.min.js"></script>
 </body>
 </html>

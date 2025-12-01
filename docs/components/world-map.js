@@ -33,8 +33,8 @@ class WorldMapComponent {
     async loadWorldData() {
         try {
             console.log('Loading world map data...');
-            // Load world topology data from a CDN
-            const response = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            // Load world topology data from local file
+            const response = await fetch('data/maps/countries-110m.json');
             
             if (!response.ok) {
                 throw new Error(`Failed to load world data: ${response.status}`);
