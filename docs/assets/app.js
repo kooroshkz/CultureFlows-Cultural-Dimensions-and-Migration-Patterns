@@ -108,6 +108,7 @@ class CultureFlowsApp {
             
             this.data.forEach(country => {
                 const countryName = country.country;
+                const population = parseFloat(country.population) || 1; // Avoid division by zero
                 if (!countryName) return;
                 
                 this.migrationData[countryName] = {
@@ -117,9 +118,14 @@ class CultureFlowsApp {
                 };
 
                 migrationYears.forEach(year => {
-                    this.migrationData[countryName].all[year] = country[year] || 0;
-                    this.migrationData[countryName].male[year] = country[`${year}_male`] || 0;
-                    this.migrationData[countryName].female[year] = country[`${year}_female`] || 0;
+                    // Calculate immigration rate per 1000 population
+                    const totalImmigration = parseFloat(country[year]) || 0;
+                    const maleImmigration = parseFloat(country[`${year}_male`]) || 0;
+                    const femaleImmigration = parseFloat(country[`${year}_female`]) || 0;
+                    
+                    this.migrationData[countryName].all[year] = (totalImmigration / population) * 1000;
+                    this.migrationData[countryName].male[year] = (maleImmigration / population) * 1000;
+                    this.migrationData[countryName].female[year] = (femaleImmigration / population) * 1000;
                 });
             });
             
@@ -153,6 +159,9 @@ class CultureFlowsApp {
         clearBtn.addEventListener('click', () => {
             this.clearSelection();
         });
+
+        // Country search functionality
+        this.setupCountrySearch();
 
         // Window resize handler
         window.addEventListener('resize', () => {
@@ -416,6 +425,77 @@ class CultureFlowsApp {
         this.updateInsights();
     }
 
+    setupCountrySearch() {
+        const searchInput = document.getElementById('country-search');
+        const searchResults = document.getElementById('search-results');
+        
+        if (!searchInput || !searchResults) return;
+
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim().toLowerCase();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            searchTimeout = setTimeout(() => {
+                this.performCountrySearch(query, searchResults);
+            }, 300);
+        });
+
+        // Hide results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Hide results when search input loses focus
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                searchResults.style.display = 'none';
+            }, 200);
+        });
+    }
+
+    performCountrySearch(query, searchResults) {
+        const matches = this.data.filter(country => 
+            country.country.toLowerCase().includes(query) ||
+            country.region.toLowerCase().includes(query) ||
+            country.continent.toLowerCase().includes(query)
+        ).slice(0, 8); // Limit to 8 results
+
+        if (matches.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        const resultsHTML = matches.map(country => `
+            <div class="search-result-item" data-country="${country.country}">
+                <span class="search-result-flag">${this.getCountryFlag(country.country)}</span>
+                <span class="search-result-name">${country.country}</span>
+                <span class="search-result-region">${country.region}</span>
+            </div>
+        `).join('');
+
+        searchResults.innerHTML = resultsHTML;
+        searchResults.style.display = 'block';
+
+        // Add click handlers to search results
+        searchResults.querySelectorAll('.search-result-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const countryName = item.getAttribute('data-country');
+                this.selectCountry(countryName);
+                searchResults.style.display = 'none';
+                document.getElementById('country-search').value = '';
+            });
+        });
+    }
+
     getCountryFlag(countryName) {
         // Comprehensive flag mapping for all countries in dataset
         // Using Unicode flag emojis with fallback support
@@ -480,14 +560,14 @@ class CultureFlowsApp {
             'Austria': '🇦🇹',
             'Belarus': '🇧🇾',
             'Belgium': '🇧🇪',
-            'Bosnia and Herzegovina': '��',
+            'Bosnia and Herzegovina': '🇧🇦',
             'Bulgaria': '🇧🇬',
             'Croatia': '🇭🇷',
-            'Czechia': '🇨�',
+            'Czechia': '🇨🇿',
             'Denmark': '🇩🇰',
-            'Estonia': '�🇪',
-            'Finland': '🇫�🇮',
-            'France': '�🇷',
+            'Estonia': '🇪🇪',
+            'Finland': '🇫🇮',
+            'France': '🇫🇷',
             'Germany': '🇩🇪',
             'Greece': '🇬🇷',
             'Hungary': '🇭🇺',
@@ -498,14 +578,14 @@ class CultureFlowsApp {
             'Lithuania': '🇱🇹',
             'Luxembourg': '🇱🇺',
             'Malta': '🇲🇹',
-            'Montenegro': '��',
+            'Montenegro': '🇲🇪',
             'Netherlands': '🇳🇱',
-            'North Macedonia': '��',
+            'North Macedonia': '🇲🇰',
             'Norway': '🇳🇴',
-            'Poland': '��',
+            'Poland': '🇵🇱',
             'Portugal': '🇵🇹',
             'Republic of Moldova': '🇲🇩',
-            'Romania': '��',
+            'Romania': '🇷🇴',
             'Russian Federation': '🇷🇺',
             'Serbia': '🇷🇸',
             'Slovenia': '🇸🇮',
@@ -517,16 +597,16 @@ class CultureFlowsApp {
             
             // North America
             'Canada': '🇨🇦',
-            'Costa Rica': '��',
+            'Costa Rica': '🇨🇷',
             'Dominican Republic': '🇩🇴',
             'El Salvador': '🇸🇻',
             'Guatemala': '🇬🇹',
-            'Honduras': '��',
+            'Honduras': '🇭🇳',
             'Jamaica': '🇯🇲',
             'Mexico': '🇲🇽',
             'Panama': '🇵🇦',
             'Puerto Rico': '🇵🇷',
-            'Trinidad and Tobago': '�🇹',
+            'Trinidad and Tobago': '🇹🇹',
             'United States of America': '🇺🇸',
             
             // South America
@@ -534,21 +614,21 @@ class CultureFlowsApp {
             'Bolivia': '🇧🇴',
             'Brazil': '🇧🇷',
             'Chile': '🇨🇱',
-            'Colombia': '🇨�',
+            'Colombia': '🇨🇴',
             'Ecuador': '🇪🇨',
             'Paraguay': '🇵🇾',
             'Peru': '🇵🇪',
-            'Suriname': '��',
+            'Suriname': '🇸🇷',
             'Uruguay': '🇺🇾',
             'Venezuela': '🇻🇪',
             
             // Oceania
             'Australia': '🇦🇺',
             'Fiji': '🇫🇯',
-            'New Zealand': '��',
+            'New Zealand': '🇳🇿',
             
             // Special cases
-            'South America': '�' // This is a region, not a country
+            'South America': '🌎' // This is a region, not a country
         };
         
         return flagMap[countryName] || '🌍';

@@ -159,7 +159,7 @@ class HofstedeExplainerComponent {
                 <div class="explainer-footer">
                     <div class="footer-content">
                         <h3>Why This Matters</h3>
-                        <p>Understanding these cultural dimensions helps us appreciate why people from different countries might think and act differently. There's no "better" or "worse" - just different ways of organizing society. These differences affect everything from how businesses operate to how families make decisions to how people build relationships.</p>
+                        <p>Understanding these cultural dimensions helps us appreciate why people from different countries might think and act differently. There's no "better" or "worse" just different ways of organizing society. These differences affect everything from how businesses operate to how families make decisions to how people build relationships.</p>
                         <div class="fun-fact">
                             <p><strong>Fun Fact:</strong> These dimensions were developed by Dutch social psychologist Geert Hofstede based on research with over 100,000 IBM employees in 76 countries between 1967 and 1973. The framework has since been used in countless studies worldwide!</p>
                         </div>

@@ -86,7 +86,7 @@ class MigrationChartComponent {
             .style('text-anchor', 'middle')
             .style('font-size', '12px')
             .style('fill', '#64748b')
-            .text('Migration Count');
+            .text('Immigration Rate');
     }
 
     drawEmptyState() {
@@ -331,7 +331,7 @@ class MigrationChartComponent {
             .html(`
                 <div style="border-left: 3px solid ${color}; padding-left: 8px;">
                     <strong>Year: ${data.year}</strong><br/>
-                    Migration: ${window.CultureFlowsUtils?.formatNumber(data.value) || data.value}
+                    Immigration Rate: ${(data.value).toFixed(1)} per 1,000
                 </div>
             `)
             .style('left', (event.pageX + 10) + 'px')
