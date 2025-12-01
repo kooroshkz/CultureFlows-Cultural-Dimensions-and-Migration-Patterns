@@ -12,16 +12,20 @@
     text-align: center;
     margin-bottom: var(--space-2xl);
     padding: var(--space-xl);
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-xl);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
 }
 
 .header-content-explainer h2 {
     font-size: var(--font-3xl);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     margin-bottom: var(--space-sm);
+    letter-spacing: -0.025em;
 }
 
 .header-content-explainer .subtitle {
@@ -42,11 +46,19 @@
     align-items: center;
     gap: var(--space-sm);
     padding: var(--space-sm) var(--space-lg);
-    background: white;
-    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     font-weight: 600;
     color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.info-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: var(--bg-primary);
 }
 
 .info-icon {
@@ -270,22 +282,22 @@
 /* Explainer Footer */
 .explainer-footer {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
     color: white;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-lg);
 }
 
 .footer-content h3 {
-    font-size: var(--font-2xl);
+    font-size: var(--font-xl);
     font-weight: 700;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     color: white;
 }
 
 .footer-content > p {
-    font-size: var(--font-lg);
-    line-height: 1.7;
+    font-size: var(--font-base);
+    line-height: 1.5;
     margin-bottom: var(--space-xl);
     opacity: 0.95;
 }
