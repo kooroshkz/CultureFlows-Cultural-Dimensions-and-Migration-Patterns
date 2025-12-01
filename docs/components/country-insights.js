@@ -372,7 +372,7 @@ class CountryInsights {
 
         try {
             // Load world topology data
-            const response = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            const response = await fetch('data/maps/countries-110m.json');
             if (!response.ok) throw new Error('Failed to load world data');
             
             const worldData = await response.json();

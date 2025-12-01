@@ -160,6 +160,9 @@ class CultureFlowsApp {
             this.clearSelection();
         });
 
+        // Country search functionality
+        this.setupCountrySearch();
+
         // Window resize handler
         window.addEventListener('resize', () => {
             if (this.culturalChart) {
@@ -420,6 +423,77 @@ class CultureFlowsApp {
         this.updateDataTable();
         this.updateMapSelection();
         this.updateInsights();
+    }
+
+    setupCountrySearch() {
+        const searchInput = document.getElementById('country-search');
+        const searchResults = document.getElementById('search-results');
+        
+        if (!searchInput || !searchResults) return;
+
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim().toLowerCase();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            searchTimeout = setTimeout(() => {
+                this.performCountrySearch(query, searchResults);
+            }, 300);
+        });
+
+        // Hide results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Hide results when search input loses focus
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                searchResults.style.display = 'none';
+            }, 200);
+        });
+    }
+
+    performCountrySearch(query, searchResults) {
+        const matches = this.data.filter(country => 
+            country.country.toLowerCase().includes(query) ||
+            country.region.toLowerCase().includes(query) ||
+            country.continent.toLowerCase().includes(query)
+        ).slice(0, 8); // Limit to 8 results
+
+        if (matches.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        const resultsHTML = matches.map(country => `
+            <div class="search-result-item" data-country="${country.country}">
+                <span class="search-result-flag">${this.getCountryFlag(country.country)}</span>
+                <span class="search-result-name">${country.country}</span>
+                <span class="search-result-region">${country.region}</span>
+            </div>
+        `).join('');
+
+        searchResults.innerHTML = resultsHTML;
+        searchResults.style.display = 'block';
+
+        // Add click handlers to search results
+        searchResults.querySelectorAll('.search-result-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const countryName = item.getAttribute('data-country');
+                this.selectCountry(countryName);
+                searchResults.style.display = 'none';
+                document.getElementById('country-search').value = '';
+            });
+        });
     }
 
     getCountryFlag(countryName) {
