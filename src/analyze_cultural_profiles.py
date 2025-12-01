@@ -6,7 +6,7 @@ Analyze cluster cultural profiles based on Hofstede's dimensions
 import json
 
 def analyze_clusters():
-    with open('../data/clustering_results.json', 'r') as f:
+    with open('../docs/data/clustering_results.json', 'r') as f:
         data = json.load(f)
     
     print("=== CULTURAL PROFILE ANALYSIS ===\n")

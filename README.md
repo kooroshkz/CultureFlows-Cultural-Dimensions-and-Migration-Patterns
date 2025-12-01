@@ -33,10 +33,7 @@ A modern, interactive web dashboard for exploring cultural dimensions and migrat
 
 ### Local Development
 ```bash
-# Navigate to website directory
-cd website
-
-# Start development server
+# Start development server (serves from /docs)
 python3 dev_server.py
 
 # Open browser to http://localhost:8000
@@ -46,19 +43,21 @@ python3 dev_server.py
 ## 📁 Project Structure
 
 ```
-website/
-├── index.html              # Main HTML file
-├── assets/
-│   ├── styles.css          # Modern CSS styling
-│   └── app.js             # Main application logic
-├── components/
-│   ├── world-map.js       # Interactive world map component
-│   ├── cultural-chart.js  # Radar chart for cultural dimensions
-│   ├── migration-chart.js # Line chart for migration trends
-│   └── data-table.js      # Detailed data comparison table
-├── data/
-│   └── masterdata.csv     # Processed cultural and migration data
-├── dev_server.py          # Local development server
+CultureFlows/
+├── docs/                   # GitHub Pages website (single source of truth)
+│   ├── index.html          # Main HTML file
+│   ├── assets/
+│   │   ├── styles.css      # Modern CSS styling
+│   │   └── app.js         # Main application logic
+│   ├── components/
+│   │   ├── world-map.js   # Interactive world map component
+│   │   ├── cultural-chart.js # Radar chart for cultural dimensions
+│   │   ├── migration-chart.js # Line chart for migration trends
+│   │   └── data-table.js  # Detailed data comparison table
+│   └── data/
+│       └── masterdata.csv # Processed cultural and migration data
+├── src/                    # Data processing and analysis scripts
+├── dev_server.py          # Local development server (serves from /docs)
 └── README.md             # This file
 ```
 

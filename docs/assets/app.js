@@ -108,6 +108,7 @@ class CultureFlowsApp {
             
             this.data.forEach(country => {
                 const countryName = country.country;
+                const population = parseFloat(country.population) || 1; // Avoid division by zero
                 if (!countryName) return;
                 
                 this.migrationData[countryName] = {
@@ -117,9 +118,14 @@ class CultureFlowsApp {
                 };
 
                 migrationYears.forEach(year => {
-                    this.migrationData[countryName].all[year] = country[year] || 0;
-                    this.migrationData[countryName].male[year] = country[`${year}_male`] || 0;
-                    this.migrationData[countryName].female[year] = country[`${year}_female`] || 0;
+                    // Calculate immigration rate per 1000 population
+                    const totalImmigration = parseFloat(country[year]) || 0;
+                    const maleImmigration = parseFloat(country[`${year}_male`]) || 0;
+                    const femaleImmigration = parseFloat(country[`${year}_female`]) || 0;
+                    
+                    this.migrationData[countryName].all[year] = (totalImmigration / population) * 1000;
+                    this.migrationData[countryName].male[year] = (maleImmigration / population) * 1000;
+                    this.migrationData[countryName].female[year] = (femaleImmigration / population) * 1000;
                 });
             });
             
@@ -480,14 +486,14 @@ class CultureFlowsApp {
             'Austria': '🇦🇹',
             'Belarus': '🇧🇾',
             'Belgium': '🇧🇪',
-            'Bosnia and Herzegovina': '��',
+            'Bosnia and Herzegovina': '🇧🇦',
             'Bulgaria': '🇧🇬',
             'Croatia': '🇭🇷',
-            'Czechia': '🇨�',
+            'Czechia': '🇨🇿',
             'Denmark': '🇩🇰',
-            'Estonia': '�🇪',
-            'Finland': '🇫�🇮',
-            'France': '�🇷',
+            'Estonia': '🇪🇪',
+            'Finland': '🇫🇮',
+            'France': '🇫🇷',
             'Germany': '🇩🇪',
             'Greece': '🇬🇷',
             'Hungary': '🇭🇺',
@@ -498,14 +504,14 @@ class CultureFlowsApp {
             'Lithuania': '🇱🇹',
             'Luxembourg': '🇱🇺',
             'Malta': '🇲🇹',
-            'Montenegro': '��',
+            'Montenegro': '🇲🇪',
             'Netherlands': '🇳🇱',
-            'North Macedonia': '��',
+            'North Macedonia': '🇲🇰',
             'Norway': '🇳🇴',
-            'Poland': '��',
+            'Poland': '🇵🇱',
             'Portugal': '🇵🇹',
             'Republic of Moldova': '🇲🇩',
-            'Romania': '��',
+            'Romania': '🇷🇴',
             'Russian Federation': '🇷🇺',
             'Serbia': '🇷🇸',
             'Slovenia': '🇸🇮',
@@ -517,16 +523,16 @@ class CultureFlowsApp {
             
             // North America
             'Canada': '🇨🇦',
-            'Costa Rica': '��',
+            'Costa Rica': '🇨🇷',
             'Dominican Republic': '🇩🇴',
             'El Salvador': '🇸🇻',
             'Guatemala': '🇬🇹',
-            'Honduras': '��',
+            'Honduras': '🇭🇳',
             'Jamaica': '🇯🇲',
             'Mexico': '🇲🇽',
             'Panama': '🇵🇦',
             'Puerto Rico': '🇵🇷',
-            'Trinidad and Tobago': '�🇹',
+            'Trinidad and Tobago': '🇹🇹',
             'United States of America': '🇺🇸',
             
             // South America
@@ -534,21 +540,21 @@ class CultureFlowsApp {
             'Bolivia': '🇧🇴',
             'Brazil': '🇧🇷',
             'Chile': '🇨🇱',
-            'Colombia': '🇨�',
+            'Colombia': '🇨🇴',
             'Ecuador': '🇪🇨',
             'Paraguay': '🇵🇾',
             'Peru': '🇵🇪',
-            'Suriname': '��',
+            'Suriname': '🇸🇷',
             'Uruguay': '🇺🇾',
             'Venezuela': '🇻🇪',
             
             // Oceania
             'Australia': '🇦🇺',
             'Fiji': '🇫🇯',
-            'New Zealand': '��',
+            'New Zealand': '🇳🇿',
             
             // Special cases
-            'South America': '�' // This is a region, not a country
+            'South America': '🌎' // This is a region, not a country
         };
         
         return flagMap[countryName] || '🌍';
